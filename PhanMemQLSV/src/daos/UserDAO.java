@@ -21,7 +21,7 @@ public class UserDAO implements UserInterface<User>{
     }
 
     @Override
-    public boolean checkLogin() {
+    public boolean checkLogin(String username, String pass) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
