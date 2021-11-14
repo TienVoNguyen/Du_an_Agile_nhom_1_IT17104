@@ -23,4 +23,8 @@
 hs_err_pid*
 /PhanMemQLSV/nbproject/private/
 /PhanMemQLSV/build/
+<<<<<<< HEAD
 /PhanMemQLSV/dist/
+=======
+/PhanMemQLSV/dist/
+>>>>>>> 42fb8c17a45a6046a8692d9ecd58363b01679bb9
