@@ -5,6 +5,8 @@
  */
 package views;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author NTV
@@ -16,6 +18,9 @@ public class MainFrom extends javax.swing.JFrame {
      */
     public MainFrom() {
         initComponents();
+        setLocationRelativeTo(null);
+        setExtendedState(getExtendedState()|JFrame.MAXIMIZED_BOTH);//Hiển thị toàn màn hình
+       
     }
 
     /**
@@ -27,21 +32,192 @@ public class MainFrom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btnDangXuat = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnQLSV = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        btnQLD = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        btnTroGiup = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        MbFile_EX = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(153, 102, 255));
+
+        jToolBar1.setBackground(new java.awt.Color(204, 102, 255));
+        jToolBar1.setRollover(true);
+        jToolBar1.add(jSeparator1);
+
+        btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Log out.png"))); // NOI18N
+        btnDangXuat.setText("Đăng Xuất");
+        btnDangXuat.setFocusable(false);
+        btnDangXuat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDangXuat.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnDangXuat);
+        jToolBar1.add(jSeparator3);
+
+        btnQLSV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/10207-man-student-light-skin-tone-icon-24.png"))); // NOI18N
+        btnQLSV.setText("Quản Lý Sinh Viên");
+        btnQLSV.setFocusable(false);
+        btnQLSV.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQLSV.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnQLSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLSVActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnQLSV);
+        jToolBar1.add(jSeparator4);
+
+        btnQLD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Application form_1.png"))); // NOI18N
+        btnQLD.setText("Quản Lý Điểm");
+        btnQLD.setFocusable(false);
+        btnQLD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQLD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnQLD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLDActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnQLD);
+        jToolBar1.add(jSeparator2);
+
+        btnTroGiup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Actions-help-about-icon-16.png"))); // NOI18N
+        btnTroGiup.setText("Trợ Giúp");
+        btnTroGiup.setFocusable(false);
+        btnTroGiup.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTroGiup.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTroGiup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTroGiupActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnTroGiup);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+        );
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo.png"))); // NOI18N
+        jPanel2.add(jLabel2);
+
+        jMenu1.setText("Hệ Thống");
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Log out.png"))); // NOI18N
+        jMenuItem1.setText("Đăng xuất");
+        jMenu1.add(jMenuItem1);
+
+        MbFile_EX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Button-Close-icon-16.png"))); // NOI18N
+        MbFile_EX.setText("Thoát");
+        MbFile_EX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MbFile_EXActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MbFile_EX);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu3.setText("Quản Lý");
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/User.png"))); // NOI18N
+        jMenuItem5.setText("Quản Lý Sinh Viên");
+        jMenu3.add(jMenuItem5);
+
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Application form.png"))); // NOI18N
+        jMenuItem6.setText("Quản Lý Điểm");
+        jMenu3.add(jMenuItem6);
+        jMenu3.add(jSeparator5);
+        jMenu3.add(jSeparator6);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Trợ Giúp");
+
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Actions-help-about-icon-16.png"))); // NOI18N
+        jMenuItem7.setText("Thông Tin");
+        jMenu4.add(jMenuItem7);
+
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Help-icon-16.png"))); // NOI18N
+        jMenuItem8.setText("Giới Thiệu");
+        jMenu4.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTroGiupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTroGiupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTroGiupActionPerformed
+
+    private void MbFile_EXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MbFile_EXActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_MbFile_EXActionPerformed
+
+    private void btnQLSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSVActionPerformed
+       StudentDiaLog a = new StudentDiaLog(this, true);
+       a.setVisible(true);
+    }//GEN-LAST:event_btnQLSVActionPerformed
+
+    private void btnQLDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLDActionPerformed
+        GradeForm gf = new GradeForm(this, true);
+        gf.setVisible(true);
+    }//GEN-LAST:event_btnQLDActionPerformed
+
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        LoginDialog lg = new LoginDialog(this, true);
+        lg.setVisible(true);
+    }//GEN-LAST:event_btnDangXuatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +255,29 @@ public class MainFrom extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MbFile_EX;
+    private javax.swing.JButton btnDangXuat;
+    private javax.swing.JButton btnQLD;
+    private javax.swing.JButton btnQLSV;
+    private javax.swing.JButton btnTroGiup;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
