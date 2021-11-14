@@ -46,5 +46,5 @@ public class MyValidate {
             return true;
         }
         return false;
-    }
-}
+    }    
+ }
