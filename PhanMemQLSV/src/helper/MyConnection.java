@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @author NTV
  */
 public class MyConnection {
-           public void ConnectionSQL(String SeverName_SQL) {
+           public Connection ConnectionSQL(String SeverName_SQL) {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setUser("sa");
         ds.setPassword("123");
@@ -23,13 +23,14 @@ public class MyConnection {
         ds.setServerName(SeverName_SQL);
         ds.setDatabaseName("FPT_APP");
         try {
-            Connection con = ds.getConnection();
-            con.close();
+            Connection con = ds.getConnection();           
+            return con;
         } catch (SQLServerException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+               return null;
 
     }
 }
