@@ -23,6 +23,14 @@ public class Grade {
         this.gDTC = gDTC;
     }
 
+    public Grade(float tiengAnh, float tinHoc, float gDTC) {
+        this.tiengAnh = tiengAnh;
+        this.tinHoc = tinHoc;
+        this.gDTC = gDTC;
+    }
+    
+    
+    
     public int getId() {
         return id;
     }
