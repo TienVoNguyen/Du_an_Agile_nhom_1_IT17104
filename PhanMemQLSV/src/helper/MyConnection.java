@@ -17,12 +17,12 @@ import java.sql.SQLException;
  */
 public class MyConnection {
 
-           public Connection ConnectionSQL(String SeverName_SQL) {
+           public Connection ConnectionSQL() {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setUser("sa");
         ds.setPassword("123");
         ds.setPortNumber(1433);
-        ds.setServerName(SeverName_SQL);
+        ds.setServerName("localhost");
         ds.setDatabaseName("FPT_APP");
         try {
             Connection con = ds.getConnection();           
