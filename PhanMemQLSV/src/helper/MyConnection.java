@@ -5,27 +5,30 @@
  */
 package helper;
 
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import java.sql.Connection;
+
 /**
  *
  * @author NTV
  */
 public class MyConnection {
-     public void ConnectionSQL(String SeverName_SQL) { 
+
+    public static Connection ConnectionSQL() {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setUser("sa");
         ds.setPassword("123");
         ds.setPortNumber(1433);
-        ds.setServerName(SeverName_SQL);
-        ds.setDatabaseName("FPT_APP");
+        ds.setServerName("localhost");
+        ds.setDatabaseName("FPL_DT");
         try {
             Connection con = ds.getConnection();
-            con.close();
-        } catch (SQLServerException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
+
+            return con;
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-
+        return null;
     }
     
 }
