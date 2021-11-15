@@ -4,21 +4,19 @@
  * and open the template in the editor.
  */
 package helper;
-<<<<<<< HEAD
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-=======
->>>>>>> 892d423e10bceeab4bd803aac6df9de3889843ba
+
 /**
  *
  * @author NTV
  */
 public class MyConnection {
-<<<<<<< HEAD
+
            public Connection ConnectionSQL(String SeverName_SQL) {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setUser("sa");
@@ -37,8 +35,5 @@ public class MyConnection {
                return null;
 
     }
-=======
-  
-    
->>>>>>> 892d423e10bceeab4bd803aac6df9de3889843ba
+
 }
