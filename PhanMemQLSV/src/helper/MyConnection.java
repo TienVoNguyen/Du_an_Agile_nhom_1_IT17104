@@ -14,21 +14,15 @@ import java.sql.Connection;
  */
 public class MyConnection {
 
-    public static Connection ConnectionSQL() {
+    public static Connection ConnectionSQL() throws Exception {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setUser("sa");
         ds.setPassword("123");
         ds.setPortNumber(1433);
         ds.setServerName("localhost");
-        ds.setDatabaseName("FPL_DT");
-        try {
-            Connection con = ds.getConnection();
-
-            return con;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
+        ds.setDatabaseName("FPT_APP");
+        Connection con = ds.getConnection();
+        return con;
     }
-    
+
 }
