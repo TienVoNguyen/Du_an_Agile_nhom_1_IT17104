@@ -22,7 +22,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        test();
+        
     }
 
     /**
@@ -333,14 +333,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
         
         
     }
-    public void test(){
-        txtMaSV.setText("PH18761");
-        txtDiaChi.setText("aasaaa");
-        txtEmail.setText("Duong@gmai.com");
-        txtTen.setText("ddadasdaasd");
-        txtSDT.setText("52888424528");
-        
-    }
+    
     
     /**
      * @param args the command line arguments
