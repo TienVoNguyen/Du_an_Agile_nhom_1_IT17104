@@ -321,8 +321,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
         if (MyValidate.isEmpty(txtTen, "Không được để trống tên")) return;
         if (MyValidate.isEmpty(txtEmail, "Không được để trống Email")) return;
         if (MyValidate.isEmpty(txtSDT, "Không được để trống số điện thoại")) return;
-        if (MyValidate.isEmpty(txtDiaChi, "Không được để trống địa chỉ")) return;
-        
+        if (MyValidate.isEmpty(txtDiaChi, "Không được để trống địa chỉ")) return;        
         if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) return;
         if (MyValidate.isNotEmail(txtEmail, "Sai định dạng email")) return;
         if (MyValidate.isNotNumberPhone(txtSDT, "Lỗi định dạng số điện thoại")) return;

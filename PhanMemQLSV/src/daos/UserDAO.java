@@ -6,11 +6,11 @@
 package daos;
 
 import helper.MyConnection;
+import helper.ShareData;
 import interfaces.UserInterface;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import models.User;
 
@@ -36,15 +36,13 @@ public class UserDAO implements UserInterface<User> {
             try (
                     ResultSet rs = pstm.executeQuery();) {
                     if (rs.next()) {
-                        User user = new User();
-                        user.setUsername(username);
-                        user.setRole(rs.getString(3));
-                        return user;
+                        ShareData.user = new User();
+                        ShareData.user.setUsername(username);
+                        ShareData.user.setRole(rs.getString(3));                        
                     }
             }
         }
-
-        return null;
+        return ShareData.user;
     }
 
 }

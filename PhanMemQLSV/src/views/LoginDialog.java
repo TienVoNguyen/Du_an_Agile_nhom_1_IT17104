@@ -6,15 +6,21 @@
 package views;
 
 
+import daos.UserDAO;
 import helper.MyMessage;
 import helper.MyValidate;
+import helper.ShareData;
+import interfaces.UserInterface;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.User;
 
 /**
  *
  * @author Admin
  */
 public class LoginDialog extends javax.swing.JDialog {
-
+    private UserInterface qlUser;
     /**
      * Creates new form LoginDialog
      */
@@ -23,6 +29,7 @@ public class LoginDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        qlUser = new UserDAO();
     }
 
     /**
@@ -40,11 +47,11 @@ public class LoginDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
-        txtPass = new javax.swing.JTextField();
         lblPass = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         chkRemember = new javax.swing.JCheckBox();
+        txtPass = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -94,11 +101,10 @@ public class LoginDialog extends javax.swing.JDialog {
                             .addComponent(lblPass)
                             .addComponent(lblName))
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(chkRemember)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(txtPass)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,8 +124,8 @@ public class LoginDialog extends javax.swing.JDialog {
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPass))
+                    .addComponent(lblPass)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkRemember)
                 .addGap(18, 18, 18)
@@ -130,6 +136,8 @@ public class LoginDialog extends javax.swing.JDialog {
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCancel, btnLogin});
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtPass, txtUser});
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 51));
 
@@ -193,8 +201,23 @@ public class LoginDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (MyValidate.isEmpty(txtUser, "Vui lòng nhập username!")) return;
-        if (MyValidate.isEmpty(txtPass, "Vui lòng nhập password!")) return;
+        try {
+            if (MyValidate.isEmpty(txtUser, "Vui lòng nhập username!")) return;
+            if (MyValidate.isEmpty(txtPass, "Vui lòng nhập password!")) return;
+            String username = txtUser.getText();
+            String pass = String.valueOf(txtPass.getPassword());
+            qlUser.checkLogin(username, pass);
+            if(ShareData.user == null) {
+                MyMessage.msgWarning("Sai username hoặc password");
+            } else {
+                String msg = "Xin chào: " + username + "\nVai trò: " + ShareData.user.getRole();
+                MyMessage.msgTrue(msg);
+                this.dispose();
+            }
+        } catch (Exception ex) {
+            MyMessage.msgFalse(ex.getMessage());
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -252,7 +275,7 @@ public class LoginDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPass;
     private javax.swing.JPanel pnlLogin;
-    private javax.swing.JTextField txtPass;
+    private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
