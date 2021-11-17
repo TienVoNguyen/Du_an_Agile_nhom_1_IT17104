@@ -6,6 +6,7 @@
 package views;
 
 import helper.ShareData;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
@@ -282,7 +283,10 @@ public class MainFrom extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQLDActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        lblUser.setText("");
+        lblRole.setText("");
         login.setVisible(true);
+        
         phanQuyen();
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
@@ -372,6 +376,13 @@ public class MainFrom extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void phanQuyen() {
+        if (ShareData.user == null) {
+            mnuStudent.setEnabled(false);
+            mnuGrade.setEnabled(false);
+            btnQLSV.setEnabled(false);
+            btnQLD.setEnabled(false);
+            return;
+        }
         lblUser.setText(ShareData.user.getUsername());
         lblRole.setText(ShareData.user.getRole());
         if (lblRole.getText().equalsIgnoreCase("Giảng viên")) {
