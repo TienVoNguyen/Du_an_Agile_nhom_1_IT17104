@@ -10,6 +10,7 @@ import helper.MyMessage;
 import helper.MyValidate;
 import helper.ShareData;
 import interfaces.UserInterface;
+import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -96,6 +97,12 @@ public class LoginDialog extends javax.swing.JDialog {
 
         lblName.setText("UserName");
 
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUserKeyPressed(evt);
+            }
+        });
+
         lblPass.setText("PassWord");
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Login-icon-16.png"))); // NOI18N
@@ -103,6 +110,11 @@ public class LoginDialog extends javax.swing.JDialog {
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
+            }
+        });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
             }
         });
 
@@ -115,6 +127,12 @@ public class LoginDialog extends javax.swing.JDialog {
         });
 
         chkRemember.setText("Remember?");
+
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPassKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -267,8 +285,27 @@ public class LoginDialog extends javax.swing.JDialog {
         } catch (Exception ex) {
             MyMessage.msgFalse(ex.getMessage());
             ex.printStackTrace();
+            
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        EnterAcctions(evt);
+    }//GEN-LAST:event_btnLoginKeyPressed
+
+    private void txtUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyPressed
+        EnterAcctions(evt);
+    }//GEN-LAST:event_txtUserKeyPressed
+
+    private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+        EnterAcctions(evt);
+    }//GEN-LAST:event_txtPassKeyPressed
+
+    private void EnterAcctions(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnLogin.doClick();
+        }
+    }
 
     /**
      * @param args the command line arguments
