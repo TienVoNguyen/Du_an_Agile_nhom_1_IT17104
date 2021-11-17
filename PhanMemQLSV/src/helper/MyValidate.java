@@ -24,6 +24,7 @@ public class MyValidate {
             txtValue.requestFocus();
             return true;
         }
+        txtValue.setBackground(Color.white);
         return false;
     }
 
@@ -35,6 +36,7 @@ public class MyValidate {
             txtValue.requestFocus();
             return true;
         }
+        txtValue.setBackground(Color.white);
         return false;
     }
 
@@ -46,13 +48,14 @@ public class MyValidate {
             txtValue.requestFocus();
             return true;
         }
+        txtValue.setBackground(Color.white);
         return false;
     }
 
     public static boolean isNotNumberScores(JTextField txtValue, String msg_Format, String msg_Domain) {
         String Number = String.valueOf(txtValue.getText());
         String pattern = "[0-9]{1,2}";
-        if (Number.matches(pattern) == false) {
+        if (!Number.matches(pattern)) {
             MyMessage.msgWarning(msg_Format);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();
@@ -65,46 +68,49 @@ public class MyValidate {
             return true;
         }
 
+        txtValue.setBackground(Color.white);
         return false;
 
     }
 
     public static boolean isNotNumberPhone(JTextField txtValue, String msg) {
         String Number = String.valueOf(txtValue.getText());
-        String pattern = "[0-9]{8,15}";
-        if (Number.matches(pattern) == false) {
+        String pattern = "0[0-9]{8,15}";
+        if (!Number.matches(pattern)) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();
             return true;
         }
 
+        txtValue.setBackground(Color.white);
         return false;
     }
 
     public static boolean isNotEmail(JTextField txtValue, String msg) {
         String Gmail = String.valueOf(txtValue.getText());
         String pattern = "^[a-zA-Z]\\w{2,}@\\w{2,}(\\.\\w{2,3}){1,2}$";
-        if (Gmail.matches(pattern) == false) {
+        if (!Gmail.matches(pattern)) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();
             return true;
         }
-
+        txtValue.setBackground(Color.white);
         return false;
     }
 
     public static boolean isNotStudenCode(JTextField txtValue, String msg) {
-        String Number = String.valueOf(txtValue.getText());
-        String pattern = "PH[0-9]{2,10}";
-        if (Number.matches(pattern) == false) {
+        String CodeSTD = String.valueOf(txtValue.getText());
+        String pattern = "[A-Z]{2}\\d{2,9}";
+        if (!CodeSTD.matches(pattern)) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();
             return true;
         }
 
+        txtValue.setBackground(Color.white);
         return false;
     }
 }
