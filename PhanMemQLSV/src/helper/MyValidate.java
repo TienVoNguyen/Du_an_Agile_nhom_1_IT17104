@@ -96,7 +96,7 @@ public class MyValidate {
     }
 
     public static boolean isNotStudenCode(JTextField txtValue, String msg) {
-        String Number = String.valueOf(txtValue);
+        String Number = String.valueOf(txtValue.getText());
         String pattern = "PH[0-9]{2,10}";
         if (Number.matches(pattern) == false) {
             MyMessage.msgWarning(msg);
