@@ -5,14 +5,18 @@
  */
 package views;
 
+import daos.StudentDAO;
+import helper.MyMessage;
 import helper.MyValidate;
+import interfaces.StudentInterface;
+import models.Student;
 
 /**
  *
  * @author Admin
  */
 public class StudentDiaLog extends javax.swing.JDialog {
-
+    private StudentInterface<Student> qlStudent;
     /**
      * Creates new form sv
      */
@@ -21,6 +25,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        qlStudent = new StudentDAO();
     }
 
     /**
@@ -325,6 +330,9 @@ public class StudentDiaLog extends javax.swing.JDialog {
         if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) return;
         if (MyValidate.isNotEmail(txtEmail, "Sai định dạng email")) return;
         if (MyValidate.isNotNumberPhone(txtSDT, "Lỗi định dạng số điện thoại")) return;
+        
+        updateStudent();
+        
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
@@ -405,4 +413,32 @@ public class StudentDiaLog extends javax.swing.JDialog {
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
+
+    private void updateStudent() {
+        // if(checkValid()) return;
+        String ma = txtMaSV.getText();
+        String ten = txtTen.getText();
+        String sdt = txtSDT.getText();
+        String email = txtEmail.getText();
+        String diaChi = txtDiaChi.getText();
+        boolean gt = rdoNam.isSelected();
+        Student st = new Student(ma, ten, email, sdt, diaChi, gt, null);
+        if (MyMessage.question("Bạn có muốn cập nhật sinh viên này?")) return;
+        try {
+            if(qlStudent.update(st)) {
+                MyMessage.msgTrue("Cập nhật sinh viên thành công!");
+                //fillToTable();
+                
+                //ResetFrom();
+                
+            }else {
+                MyMessage.msgWarning("Cập nhật sinh viên không thành công!/nKiểm tra lại mã sinh viên hoặc thêm mới!");
+            }
+        } catch (Exception ex) {
+            MyMessage.msgFalse(ex.getMessage());
+            ex.printStackTrace();
+        }
+        
+    }
+    
 }

@@ -5,8 +5,13 @@
  */
 package daos;
 
+import helper.MyConnection;
 import interfaces.StudentInterface;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import javax.sql.rowset.serial.SerialBlob;
 import models.Student;
 
 /**
@@ -16,17 +21,32 @@ import models.Student;
 public class StudentDAO implements StudentInterface<Student>{
 
     @Override
-    public void add(Student t) throws Exception {
+    public boolean add(Student student) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Student t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean update(Student student) throws Exception {
+        String sql = "UPDATE [dbo].[Student] SET [hoTen] = ?,[email] = ?,[sdt] = ?,[diaChi] = ?,[gioiTinh] = ?,[hinh] = ? WHERE [maSV] = ?";
+        Connection con = MyConnection.ConnectionSQL();
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        pstmt.setString(7, student.getMaSV());
+        pstmt.setString(1, student.getHoTen());
+        pstmt.setString(2, student.getEmail());
+        pstmt.setString(3, student.getSdt());
+        pstmt.setString(4, student.getDiaChi());
+        pstmt.setBoolean(5, student.isGt());
+        Blob hinh = null;
+        if (student.getHinh() != null){
+            hinh = new SerialBlob(student.getHinh());
+        }
+        pstmt.setBlob(6, hinh);
+        
+        return pstmt.executeUpdate() > 0;
     }
 
     @Override
-    public void delete(String maSV) throws Exception {
+    public boolean delete(String maSV) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -41,7 +61,7 @@ public class StudentDAO implements StudentInterface<Student>{
     }
 
     @Override
-    public void findByID(String maSV) throws Exception {
+    public boolean findByID(String maSV) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
