@@ -5,14 +5,27 @@
  */
 package views;
 
+import daos.StudentDAO;
+
 import helper.MyValidate;
 import javax.swing.JOptionPane;
+import helper.MyMessage;
+import helper.MyValidate;
+<<<<<<< HEAD
+import javax.swing.JOptionPane;
+=======
+import interfaces.StudentInterface;
+import java.awt.HeadlessException;
+import models.Student;
+>>>>>>> ca4871b33aad1eec99914eb30d7f07495fd245a3
 
 /**
  *
  * @author Admin
  */
 public class StudentDiaLog extends javax.swing.JDialog {
+
+    private StudentInterface<Student> qlStudent;
 
     /**
      * Creates new form sv
@@ -22,7 +35,11 @@ public class StudentDiaLog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+<<<<<<< HEAD
        
+=======
+        qlStudent = new StudentDAO();
+>>>>>>> ca4871b33aad1eec99914eb30d7f07495fd245a3
     }
 
     /**
@@ -304,10 +321,11 @@ public class StudentDiaLog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        
+
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+<<<<<<< HEAD
        Validate();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -335,6 +353,69 @@ public class StudentDiaLog extends javax.swing.JDialog {
     }
   
     
+=======
+        if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
+            return;
+        }
+        if (MyValidate.isEmpty(txtTen, "Không được để trống tên")) {
+            return;
+        }
+        if (MyValidate.isEmpty(txtEmail, "Không được để trống Email")) {
+            return;
+        }
+        if (MyValidate.isEmpty(txtSDT, "Không được để trống số điện thoại")) {
+            return;
+        }
+        if (MyValidate.isEmpty(txtDiaChi, "Không được để trống địa chỉ")) {
+            return;
+        }
+        if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) {
+            return;
+        }
+        if (MyValidate.isNotEmail(txtEmail, "Sai định dạng email")) {
+            return;
+        }
+        if (MyValidate.isNotNumberPhone(txtSDT, "Lỗi định dạng số điện thoại")) {
+            return;
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
+            return;
+        }
+        if (MyValidate.isEmpty(txtTen, "Không được để trống tên")) {
+            return;
+        }
+        if (MyValidate.isEmpty(txtEmail, "Không được để trống Email")) {
+            return;
+        }
+        if (MyValidate.isEmpty(txtSDT, "Không được để trống số điện thoại")) {
+            return;
+        }
+        if (MyValidate.isEmpty(txtDiaChi, "Không được để trống địa chỉ")) {
+            return;
+        }
+        if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) {
+            return;
+        }
+        if (MyValidate.isNotEmail(txtEmail, "Sai định dạng email")) {
+            return;
+        }
+        if (MyValidate.isNotNumberPhone(txtSDT, "Lỗi định dạng số điện thoại")) {
+            return;
+        }
+
+        updateStudent();
+
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        deleteStudent();
+
+    }//GEN-LAST:event_btnDelActionPerformed
+
+>>>>>>> ca4871b33aad1eec99914eb30d7f07495fd245a3
     /**
      * @param args the command line arguments
      */
@@ -408,4 +489,64 @@ public class StudentDiaLog extends javax.swing.JDialog {
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
+    
+    private void resetFrom() {
+        txtMaSV.setText("");
+        txtTen.setText("");
+        txtSDT.setText("");
+        txtEmail.setText("");
+        txtDiaChi.setText("");
+        rdoNam.setSelected(true);
+    }
+    
+    private void updateStudent() {
+        // if(checkValid()) return;
+        String ma = txtMaSV.getText();
+        String ten = txtTen.getText();
+        String sdt = txtSDT.getText();
+        String email = txtEmail.getText();
+        String diaChi = txtDiaChi.getText();
+        boolean gt = rdoNam.isSelected();
+        Student st = new Student(ma, ten, email, sdt, diaChi, gt, null);
+        if (MyMessage.question("Bạn có muốn cập nhật sinh viên này?")) {
+            return;
+        }
+        try {
+            if (qlStudent.update(st)) {
+                MyMessage.msgTrue("Cập nhật sinh viên thành công!");
+                //fillToTable();
+
+                resetFrom();
+            } else {
+                MyMessage.msgWarning("Cập nhật sinh viên không thành công!\nKiểm tra lại mã sinh viên hoặc thêm mới!");
+            }
+        } catch (Exception ex) {
+            MyMessage.msgFalse(ex.getMessage());
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void deleteStudent(){
+        if (MyValidate.isEmpty(txtMaSV, "Điền mã sinh viên cần xoá!")) return;
+        
+        if (MyMessage.question("Bạn có muốn xoá sinh viên này?")) {
+            return;
+        }
+        String maSV = txtMaSV.getText();
+        try {
+            if (qlStudent.delete(maSV)) {
+                MyMessage.msgTrue("Xóa sinh viên thành công!");
+                //fillToTable();
+
+                resetFrom();
+            } else {
+                MyMessage.msgWarning("Xóa sinh viên không thành công!\nKiểm tra lại mã sinh viên!");
+            }
+        } catch (Exception e) {
+            MyMessage.msgFalse(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }

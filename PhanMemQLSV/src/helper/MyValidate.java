@@ -101,9 +101,15 @@ public class MyValidate {
     }
 
     public static boolean isNotStudenCode(JTextField txtValue, String msg) {
+<<<<<<< HEAD
         String CodeSTD = String.valueOf(txtValue.getText());
         String pattern = "[A-Z]{2}\\d{2,9}";
         if (CodeSTD.matches(pattern) == false) {
+=======
+        String Number = String.valueOf(txtValue.getText());
+        String pattern = "PH[0-9]{2,10}";
+        if (Number.matches(pattern) == false) {
+>>>>>>> ca4871b33aad1eec99914eb30d7f07495fd245a3
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();

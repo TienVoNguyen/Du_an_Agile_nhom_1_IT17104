@@ -5,6 +5,7 @@
  */
 package views;
 
+import helper.ShareData;
 import javax.swing.JFrame;
 
 /**
@@ -13,6 +14,10 @@ import javax.swing.JFrame;
  */
 public class MainFrom extends javax.swing.JFrame {
 
+    private LoginDialog login;
+    private StudentDiaLog fStudent;
+    private GradeForm fGrade;
+
     /**
      * Creates new form MainFrom
      */
@@ -20,7 +25,9 @@ public class MainFrom extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);//Hiển thị toàn màn hình
-
+        login = new LoginDialog(this, true);
+        fStudent = new StudentDiaLog(this, true);
+        fGrade = new GradeForm(this, true);
     }
 
     /**
@@ -42,22 +49,33 @@ public class MainFrom extends javax.swing.JFrame {
         btnQLD = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btnTroGiup = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblRole = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        MbFile_EX = new javax.swing.JMenuItem();
+        mnuDangXuat = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        mnuExit = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        mnuStudent = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        mnuGrade = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        mnuThongTin = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        mnuGioiThieu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(153, 102, 255));
 
@@ -116,15 +134,49 @@ public class MainFrom extends javax.swing.JFrame {
         });
         jToolBar1.add(btnTroGiup);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Tên: ");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Vai trò:");
+
+        lblRole.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblRole.setForeground(new java.awt.Color(255, 255, 255));
+        lblRole.setToolTipText("");
+
+        lblUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblUser.setForeground(new java.awt.Color(255, 255, 255));
+        lblUser.setToolTipText("");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
@@ -135,44 +187,61 @@ public class MainFrom extends javax.swing.JFrame {
 
         jMenu1.setText("Hệ Thống");
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Log out.png"))); // NOI18N
-        jMenuItem1.setText("Đăng xuất");
-        jMenu1.add(jMenuItem1);
-
-        MbFile_EX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Button-Close-icon-16.png"))); // NOI18N
-        MbFile_EX.setText("Thoát");
-        MbFile_EX.addActionListener(new java.awt.event.ActionListener() {
+        mnuDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Log out.png"))); // NOI18N
+        mnuDangXuat.setText("Đăng xuất");
+        mnuDangXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MbFile_EXActionPerformed(evt);
+                mnuDangXuatActionPerformed(evt);
             }
         });
-        jMenu1.add(MbFile_EX);
+        jMenu1.add(mnuDangXuat);
+        jMenu1.add(jSeparator8);
+
+        mnuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Button-Close-icon-16.png"))); // NOI18N
+        mnuExit.setText("Thoát");
+        mnuExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuExit);
 
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Quản Lý");
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/User.png"))); // NOI18N
-        jMenuItem5.setText("Quản Lý Sinh Viên");
-        jMenu3.add(jMenuItem5);
+        mnuStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/User.png"))); // NOI18N
+        mnuStudent.setText("Quản Lý Sinh Viên");
+        mnuStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuStudentActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuStudent);
+        jMenu3.add(jSeparator7);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Application form.png"))); // NOI18N
-        jMenuItem6.setText("Quản Lý Điểm");
-        jMenu3.add(jMenuItem6);
-        jMenu3.add(jSeparator5);
+        mnuGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Application form.png"))); // NOI18N
+        mnuGrade.setText("Quản Lý Điểm");
+        mnuGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuGradeActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuGrade);
         jMenu3.add(jSeparator6);
 
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Trợ Giúp");
 
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Actions-help-about-icon-16.png"))); // NOI18N
-        jMenuItem7.setText("Thông Tin");
-        jMenu4.add(jMenuItem7);
+        mnuThongTin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Actions-help-about-icon-16.png"))); // NOI18N
+        mnuThongTin.setText("Thông Tin");
+        jMenu4.add(mnuThongTin);
+        jMenu4.add(jSeparator5);
 
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Help-icon-16.png"))); // NOI18N
-        jMenuItem8.setText("Giới Thiệu");
-        jMenu4.add(jMenuItem8);
+        mnuGioiThieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Help-icon-16.png"))); // NOI18N
+        mnuGioiThieu.setText("Giới Thiệu");
+        jMenu4.add(mnuGioiThieu);
 
         jMenuBar1.add(jMenu4);
 
@@ -182,7 +251,7 @@ public class MainFrom extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -190,7 +259,7 @@ public class MainFrom extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,24 +269,39 @@ public class MainFrom extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTroGiupActionPerformed
 
-    private void MbFile_EXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MbFile_EXActionPerformed
+    private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExitActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_MbFile_EXActionPerformed
+    }//GEN-LAST:event_mnuExitActionPerformed
 
     private void btnQLSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSVActionPerformed
-        StudentDiaLog a = new StudentDiaLog(this, true);
-        a.setVisible(true);
+        fStudent.setVisible(true);
     }//GEN-LAST:event_btnQLSVActionPerformed
 
     private void btnQLDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLDActionPerformed
-        GradeForm gf = new GradeForm(this, true);
-        gf.setVisible(true);
+        fGrade.setVisible(true);
     }//GEN-LAST:event_btnQLDActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-        LoginDialog lg = new LoginDialog(this, true);
-        lg.setVisible(true);
+        login.setVisible(true);
+        phanQuyen();
     }//GEN-LAST:event_btnDangXuatActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        login.setVisible(true);
+        phanQuyen();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void mnuStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuStudentActionPerformed
+        btnQLSVActionPerformed(evt);
+    }//GEN-LAST:event_mnuStudentActionPerformed
+
+    private void mnuGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGradeActionPerformed
+        btnQLDActionPerformed(evt);
+    }//GEN-LAST:event_mnuGradeActionPerformed
+
+    private void mnuDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDangXuatActionPerformed
+        btnDangXuatActionPerformed(evt);
+    }//GEN-LAST:event_mnuDangXuatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,21 +339,17 @@ public class MainFrom extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem MbFile_EX;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnQLD;
     private javax.swing.JButton btnQLSV;
     private javax.swing.JButton btnTroGiup;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -278,6 +358,37 @@ public class MainFrom extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblRole;
+    private javax.swing.JLabel lblUser;
+    private javax.swing.JMenuItem mnuDangXuat;
+    private javax.swing.JMenuItem mnuExit;
+    private javax.swing.JMenuItem mnuGioiThieu;
+    private javax.swing.JMenuItem mnuGrade;
+    private javax.swing.JMenuItem mnuStudent;
+    private javax.swing.JMenuItem mnuThongTin;
     // End of variables declaration//GEN-END:variables
+
+    private void phanQuyen() {
+        lblUser.setText(ShareData.user.getUsername());
+        lblRole.setText(ShareData.user.getRole());
+        if (lblRole.getText().equalsIgnoreCase("Giảng viên")) {
+            mnuStudent.setEnabled(false);
+            mnuGrade.setEnabled(true);
+            btnQLSV.setEnabled(false);
+            btnQLD.setEnabled(true);
+        } else if (lblRole.getText().equalsIgnoreCase("Đào tạo")) {
+            mnuStudent.setEnabled(true);
+            mnuGrade.setEnabled(false);
+            btnQLSV.setEnabled(true);
+            btnQLD.setEnabled(false);
+        } else {
+            mnuStudent.setEnabled(false);
+            mnuGrade.setEnabled(false);
+            btnQLSV.setEnabled(false);
+            btnQLD.setEnabled(false);
+        }
+    }
 }
