@@ -19,8 +19,8 @@ public class MainFrom extends javax.swing.JFrame {
     public MainFrom() {
         initComponents();
         setLocationRelativeTo(null);
-        setExtendedState(getExtendedState()|JFrame.MAXIMIZED_BOTH);//Hiển thị toàn màn hình
-       
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);//Hiển thị toàn màn hình
+
     }
 
     /**
@@ -205,8 +205,8 @@ public class MainFrom extends javax.swing.JFrame {
     }//GEN-LAST:event_MbFile_EXActionPerformed
 
     private void btnQLSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSVActionPerformed
-       StudentDiaLog a = new StudentDiaLog(this, true);
-       a.setVisible(true);
+        StudentDiaLog a = new StudentDiaLog(this, true);
+        a.setVisible(true);
     }//GEN-LAST:event_btnQLSVActionPerformed
 
     private void btnQLDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLDActionPerformed
