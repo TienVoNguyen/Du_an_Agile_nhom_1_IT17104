@@ -9,6 +9,8 @@ import daos.StudentDAO;
 import helper.MyMessage;
 import helper.MyValidate;
 import interfaces.StudentInterface;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import models.Student;
 
 /**
@@ -17,6 +19,7 @@ import models.Student;
  */
 public class StudentDiaLog extends javax.swing.JDialog {
     private StudentInterface<Student> qlStudent;
+    private DefaultTableModel dtm;
     /**
      * Creates new form sv
      */
@@ -26,6 +29,8 @@ public class StudentDiaLog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setResizable(false);
         qlStudent = new StudentDAO();
+        this.dtm = (DefaultTableModel) tblSV.getModel();
+        fillToTable();
     }
 
     /**
@@ -414,6 +419,28 @@ public class StudentDiaLog extends javax.swing.JDialog {
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 
+    private void fillToTable(){
+        this.dtm.setRowCount(0);
+        try {
+            ArrayList<Student> list = this.qlStudent.getDanhSachSV();
+            for (Student s : list) {
+                String gt = (s.isGt()?"Nam":"Nữ");
+                Object[] data = new Object[]{
+                    s.getMaSV(),
+                    s.getHoTen(),
+                    s.getEmail(),
+                    s.getSdt(),
+                    gt,
+                    s.getDiaChi(),
+                    s.getHinh()
+                };
+                this.dtm.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+        
     private void updateStudent() {
         // if(checkValid()) return;
         String ma = txtMaSV.getText();

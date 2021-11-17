@@ -10,6 +10,8 @@ import interfaces.StudentInterface;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.sql.rowset.serial.SerialBlob;
 import models.Student;
@@ -61,8 +63,59 @@ public class StudentDAO implements StudentInterface<Student>{
     }
 
     @Override
-    public boolean findByID(String maSV) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Student findByID(String maSV) throws Exception {
+        String sql = "SELECT * FROM [Student] WHERE [maSV] = ?";
+        try (
+                Connection con = MyConnection.ConnectionSQL();
+                PreparedStatement pstm = con.prepareStatement(sql);) {
+
+            pstm.setString(1, maSV);
+            try (ResultSet rs = pstm.executeQuery()) {
+                if (rs.next()) {
+                    Student sv = createNewSinhVien(rs);
+                    
+
+                    return sv;
+                }
+            }
+            return null;
+        }
     }
     
+    public Student createNewSinhVien(final ResultSet rs) throws SQLException {
+        Student sv = new Student();
+        sv.setMaSV(rs.getString("maSV"));
+        sv.setHoTen(rs.getString("hoTen"));
+        sv.setEmail(rs.getString("email"));
+        sv.setSdt(rs.getString("sdt"));
+        sv.setGt(rs.getBoolean("gioiTinh"));
+        sv.setDiaChi(rs.getString("diaChi"));
+        Blob blod = rs.getBlob("hinh");
+        if (blod != null){
+            sv.setHinh(blod.getBytes(1, (int) blod.length()));
+        }
+        return sv;
+    }
+
+    @Override
+    public ArrayList<Student> getDanhSachSV() throws Exception {
+         String sql = "SELECT * FROM [Student]";
+        try (
+                Connection con = MyConnection.ConnectionSQL();
+                PreparedStatement pstm = con.prepareStatement(sql);) {
+
+            
+            try (ResultSet rs = pstm.executeQuery()) {
+                ArrayList<Student> list = new ArrayList<>();
+                while (rs.next()) {
+                    Student sv = createNewSinhVien(rs);
+                    
+                    list.add(sv);
+                    
+                }
+                return list;
+            }
+            
+        }
+    }
 }
