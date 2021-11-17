@@ -372,6 +372,9 @@ public class MainFrom extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void phanQuyen() {
+        if (ShareData.user == null) {
+            return;
+        }
         lblUser.setText(ShareData.user.getUsername());
         lblRole.setText(ShareData.user.getRole());
         if (lblRole.getText().equalsIgnoreCase("Giảng viên")) {

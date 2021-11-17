@@ -55,7 +55,7 @@ public class MyValidate {
     public static boolean isNotNumberScores(JTextField txtValue, String msg_Format, String msg_Domain) {
         String Number = String.valueOf(txtValue.getText());
         String pattern = "[0-9]{1,2}";
-        if (Number.matches(pattern) == false) {
+        if (!Number.matches(pattern)) {
             MyMessage.msgWarning(msg_Format);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();
@@ -76,7 +76,7 @@ public class MyValidate {
     public static boolean isNotNumberPhone(JTextField txtValue, String msg) {
         String Number = String.valueOf(txtValue.getText());
         String pattern = "0[0-9]{8,15}";
-        if (Number.matches(pattern) == false) {
+        if (!Number.matches(pattern)) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();
@@ -90,7 +90,7 @@ public class MyValidate {
     public static boolean isNotEmail(JTextField txtValue, String msg) {
         String Gmail = String.valueOf(txtValue.getText());
         String pattern = "^[a-zA-Z]\\w{2,}@\\w{2,}(\\.\\w{2,3}){1,2}$";
-        if (Gmail.matches(pattern) == false) {
+        if (!Gmail.matches(pattern)) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();
@@ -101,15 +101,9 @@ public class MyValidate {
     }
 
     public static boolean isNotStudenCode(JTextField txtValue, String msg) {
-<<<<<<< HEAD
         String CodeSTD = String.valueOf(txtValue.getText());
         String pattern = "[A-Z]{2}\\d{2,9}";
-        if (CodeSTD.matches(pattern) == false) {
-=======
-        String Number = String.valueOf(txtValue.getText());
-        String pattern = "PH[0-9]{2,10}";
-        if (Number.matches(pattern) == false) {
->>>>>>> ca4871b33aad1eec99914eb30d7f07495fd245a3
+        if (!CodeSTD.matches(pattern)) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();

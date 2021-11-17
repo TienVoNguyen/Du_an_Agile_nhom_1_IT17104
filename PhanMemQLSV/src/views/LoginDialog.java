@@ -5,14 +5,19 @@
  */
 package views;
 
-
 import daos.UserDAO;
 import helper.MyMessage;
 import helper.MyValidate;
 import helper.ShareData;
 import interfaces.UserInterface;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import models.ListAccountRemember;
 import models.User;
 
 /**
@@ -20,7 +25,13 @@ import models.User;
  * @author Admin
  */
 public class LoginDialog extends javax.swing.JDialog {
+
     private UserInterface qlUser;
+    private String path = "ListAccount.dat";
+    private ListAccountRemember listAccount;
+    private String rememberUser = "";
+    private String rememberPass = "";
+
     /**
      * Creates new form LoginDialog
      */
@@ -30,6 +41,22 @@ public class LoginDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setResizable(false);
         qlUser = new UserDAO();
+
+        //lấy ra tên tài khoản và mật khẩu đã được remember
+        this.listAccount = new ListAccountRemember();
+
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
+            this.listAccount = (ListAccountRemember) ois.readObject();
+            this.rememberPass = this.listAccount.getPass();
+            this.rememberUser = this.listAccount.getUser();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        this.txtUser.setText(rememberUser);
+        this.txtPass.setText(rememberPass);
+        this.chkRemember.setSelected(rememberUser.equals("") ? false : true);
     }
 
     /**
@@ -196,22 +223,45 @@ public class LoginDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        if (MyMessage.question("Bạn có muốn thoát?")) return;
+        if (MyMessage.question("Bạn có muốn thoát?")) {
+            return;
+        }
         System.exit(0);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
-            if (MyValidate.isEmpty(txtUser, "Vui lòng nhập username!")) return;
-            if (MyValidate.isEmpty(txtPass, "Vui lòng nhập password!")) return;
+            if (MyValidate.isEmpty(txtUser, "Vui lòng nhập username!")) {
+                return;
+            }
+            if (MyValidate.isEmpty(txtPass, "Vui lòng nhập password!")) {
+                return;
+            }
             String username = txtUser.getText();
             String pass = String.valueOf(txtPass.getPassword());
             qlUser.checkLogin(username, pass);
-            if(ShareData.user == null) {
+            if (ShareData.user == null) {
                 MyMessage.msgWarning("Sai username hoặc password");
             } else {
                 String msg = "Xin chào: " + username + "\nVai trò: " + ShareData.user.getRole();
                 MyMessage.msgTrue(msg);
+                
+                // lưu lại thông tin của người dùng nếu chọn "remember me?"
+                if (chkRemember.isSelected() == true) {
+                    this.rememberUser = this.txtUser.getText();
+                    this.rememberPass = String.valueOf(this.txtPass.getPassword());
+                } else {
+                    this.rememberPass = "";
+                    this.rememberUser = "";
+                }
+                listAccount = new ListAccountRemember(rememberUser, rememberPass);
+                try {
+                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
+                    oos.writeObject(listAccount);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage());
+                }
+                
                 this.dispose();
             }
         } catch (Exception ex) {
