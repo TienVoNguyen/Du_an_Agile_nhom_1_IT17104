@@ -20,7 +20,7 @@ import models.Student;
  *
  * @author NTV
  */
-public class StudentDAO implements StudentInterface<Student>{
+public class StudentDAO implements StudentInterface<Student> {
 
     @Override
     public boolean add(Student student) throws Exception {
@@ -39,23 +39,26 @@ public class StudentDAO implements StudentInterface<Student>{
         pstmt.setString(4, student.getDiaChi());
         pstmt.setBoolean(5, student.isGt());
         Blob hinh = null;
-        if (student.getHinh() != null){
+        if (student.getHinh() != null) {
             hinh = new SerialBlob(student.getHinh());
         }
         pstmt.setBlob(6, hinh);
-        
+
         return pstmt.executeUpdate() > 0;
     }
 
     @Override
     public boolean delete(String maSV) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM [dbo].[Student] WHERE [maSV] = ?";
+        try (Connection con = MyConnection.ConnectionSQL();
+                PreparedStatement pstmt = con.prepareStatement(sql);) {
+
+            pstmt.setString(1, maSV);
+            return pstmt.executeUpdate() > 0;
+        }
+
     }
 
-    @Override
-    public ArrayList<Student> getList() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void setList(ArrayList<Student> lst) throws Exception {
@@ -81,7 +84,7 @@ public class StudentDAO implements StudentInterface<Student>{
             return null;
         }
     }
-    
+
     public Student createNewSinhVien(final ResultSet rs) throws SQLException {
         Student sv = new Student();
         sv.setMaSV(rs.getString("maSV"));
@@ -118,4 +121,5 @@ public class StudentDAO implements StudentInterface<Student>{
             
         }
     }
+
 }

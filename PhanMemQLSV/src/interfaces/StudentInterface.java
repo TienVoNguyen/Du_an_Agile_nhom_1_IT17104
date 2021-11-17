@@ -6,7 +6,7 @@
 package interfaces;
 
 import java.util.ArrayList;
-import models.Student;
+
 
 /**
  *
@@ -19,12 +19,10 @@ public interface StudentInterface<T> {
     
     public boolean delete(String maSV) throws Exception;
     
-    public ArrayList<T> getList() throws Exception;
-    
     public void setList(ArrayList<T> lst) throws Exception;
     
-    public Student findByID(String maSV) throws Exception;
+    public T findByID(String maSV) throws Exception;
     
-    public ArrayList<Student> getDanhSachSV()throws Exception;
+    public ArrayList<T> getDanhSachSV()throws Exception;
     
 }
