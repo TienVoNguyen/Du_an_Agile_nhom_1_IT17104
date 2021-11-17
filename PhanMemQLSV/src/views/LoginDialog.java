@@ -6,15 +6,21 @@
 package views;
 
 
+import daos.UserDAO;
 import helper.MyMessage;
 import helper.MyValidate;
+import helper.ShareData;
+import interfaces.UserInterface;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.User;
 
 /**
  *
  * @author Admin
  */
 public class LoginDialog extends javax.swing.JDialog {
-
+    private UserInterface qlUser;
     /**
      * Creates new form LoginDialog
      */
@@ -23,6 +29,7 @@ public class LoginDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        qlUser = new UserDAO();
     }
 
     /**
@@ -94,10 +101,15 @@ public class LoginDialog extends javax.swing.JDialog {
                             .addComponent(lblPass)
                             .addComponent(lblName))
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(chkRemember)
+<<<<<<< HEAD
                             .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+=======
+                            .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(txtPass)))
+>>>>>>> ca4871b33aad1eec99914eb30d7f07495fd245a3
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,8 +208,23 @@ public class LoginDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (MyValidate.isEmpty(txtUser, "Vui lòng nhập username!")) return;
-        if (MyValidate.isEmpty(txtPass, "Vui lòng nhập password!")) return;
+        try {
+            if (MyValidate.isEmpty(txtUser, "Vui lòng nhập username!")) return;
+            if (MyValidate.isEmpty(txtPass, "Vui lòng nhập password!")) return;
+            String username = txtUser.getText();
+            String pass = String.valueOf(txtPass.getPassword());
+            qlUser.checkLogin(username, pass);
+            if(ShareData.user == null) {
+                MyMessage.msgWarning("Sai username hoặc password");
+            } else {
+                String msg = "Xin chào: " + username + "\nVai trò: " + ShareData.user.getRole();
+                MyMessage.msgTrue(msg);
+                this.dispose();
+            }
+        } catch (Exception ex) {
+            MyMessage.msgFalse(ex.getMessage());
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

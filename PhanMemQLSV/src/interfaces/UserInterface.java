@@ -14,6 +14,6 @@ import java.util.ArrayList;
 public interface UserInterface<T> {    
     public ArrayList<T> getList() throws Exception;
     
-    public boolean checkLogin(String username, String pass);
+    public T checkLogin(String username, String pass) throws Exception;
     
 }
