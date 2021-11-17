@@ -144,10 +144,20 @@ public class StudentDiaLog extends javax.swing.JDialog {
 
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Edit.png"))); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
         pnlButton.add(btnUpdate);
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Delete.png"))); // NOI18N
         btnDel.setText("Delete");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
         pnlButton.add(btnDel);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -313,23 +323,23 @@ public class StudentDiaLog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-
+        
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
        Validate();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
        Validate();
-    }                                         
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return; 
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+          if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return; 
         if(MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) return;
-    }                                      
-
+    }//GEN-LAST:event_btnDelActionPerformed
     
+
     public void Validate(){
         if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return;
         if (MyValidate.isEmpty(txtTen, "Không được để trống tên")) return;

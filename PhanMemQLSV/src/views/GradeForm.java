@@ -276,18 +276,33 @@ public class GradeForm extends javax.swing.JDialog {
         btnSave.setForeground(new java.awt.Color(102, 51, 255));
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Save.png"))); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnSave);
 
         btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(102, 51, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Delete.png"))); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnDelete);
 
         btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(102, 51, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Edit.png"))); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnUpdate);
 
         jPanel6.setBackground(new java.awt.Color(153, 204, 255));
@@ -400,7 +415,8 @@ public class GradeForm extends javax.swing.JDialog {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return;
-        if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) return;
+        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) return;
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -408,8 +424,8 @@ public class GradeForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return;
-        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Dạng Mã Sinh Viên, vui lòng nhập PH+Mã số sinh viên")) return;
+        if(MyValidate.isEmpty(txtSearch, "Không được để trống mã sinh viên")) return;
+        if (MyValidate.isNotStudenCode(txtSearch, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) return;
     }//GEN-LAST:event_btnSearchActionPerformed
 
      public void validate_Grade(){
