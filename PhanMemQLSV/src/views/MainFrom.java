@@ -285,8 +285,8 @@ public class MainFrom extends javax.swing.JFrame {
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
         lblUser.setText("");
         lblRole.setText("");
-        login.setVisible(true);
-        
+        ShareData.user = null;
+        login.setVisible(true);        
         phanQuyen();
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
