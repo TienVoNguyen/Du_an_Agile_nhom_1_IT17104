@@ -5,6 +5,8 @@
  */
 package views;
 
+import helper.MyValidate;
+
 /**
  *
  * @author Admin
@@ -103,18 +105,38 @@ public class StudentDiaLog extends javax.swing.JDialog {
 
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Add.png"))); // NOI18N
         btnNew.setText("New");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
         pnlButton.add(btnNew);
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Save as.png"))); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         pnlButton.add(btnSave);
 
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Edit.png"))); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
         pnlButton.add(btnUpdate);
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Delete.png"))); // NOI18N
         btnDel.setText("Delete");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
         pnlButton.add(btnDel);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -243,13 +265,10 @@ public class StudentDiaLog extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(185, 185, 185)
@@ -281,6 +300,38 @@ public class StudentDiaLog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        
+    }//GEN-LAST:event_btnNewActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return;
+        if (MyValidate.isEmpty(txtTen, "Không được để trống tên")) return;
+        if (MyValidate.isEmpty(txtEmail, "Không được để trống Email")) return;
+        if (MyValidate.isEmpty(txtSDT, "Không được để trống số điện thoại")) return;
+        if (MyValidate.isEmpty(txtDiaChi, "Không được để trống địa chỉ")) return;        
+        if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) return;
+        if (MyValidate.isNotEmail(txtEmail, "Sai định dạng email")) return;
+        if (MyValidate.isNotNumberPhone(txtSDT, "Lỗi định dạng số điện thoại")) return;
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return;
+        if (MyValidate.isEmpty(txtTen, "Không được để trống tên")) return;
+        if (MyValidate.isEmpty(txtEmail, "Không được để trống Email")) return;
+        if (MyValidate.isEmpty(txtSDT, "Không được để trống số điện thoại")) return;
+        if (MyValidate.isEmpty(txtDiaChi, "Không được để trống địa chỉ")) return;
+        
+        if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) return;
+        if (MyValidate.isNotEmail(txtEmail, "Sai định dạng email")) return;
+        if (MyValidate.isNotNumberPhone(txtSDT, "Lỗi định dạng số điện thoại")) return;
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return;
+        if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) return;
+    }//GEN-LAST:event_btnDelActionPerformed
 
     /**
      * @param args the command line arguments
