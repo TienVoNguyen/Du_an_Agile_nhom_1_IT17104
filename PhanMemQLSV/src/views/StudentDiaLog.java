@@ -22,7 +22,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        
+        test();
     }
 
     /**
@@ -317,7 +317,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return;
-        if(MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập PH + Mã Sinh Viên")) return;
+        if(MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) return;
     }//GEN-LAST:event_btnDelActionPerformed
 
     
@@ -329,11 +329,18 @@ public class StudentDiaLog extends javax.swing.JDialog {
         if (MyValidate.isEmpty(txtDiaChi, "Không được để trống địa chỉ")) return;
         if (MyValidate.isNotEmail(txtEmail, "Sai định dạng email")) return;
         if (MyValidate.isNotNumberPhone(txtSDT, "Sai định dạng số điện thoại")) return; 
-        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Dạng Mã Sinh Viên, vui lòng nhập PH + Mã Sinh Viên")) return;
+        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) return;
         
         
     }
-    
+    public void test(){
+        txtMaSV.setText("PH18761");
+        txtDiaChi.setText("aasaaa");
+        txtEmail.setText("Duong@gmai.com");
+        txtTen.setText("ddadasdaasd");
+        txtSDT.setText("52888424528");
+        
+    }
     
     /**
      * @param args the command line arguments

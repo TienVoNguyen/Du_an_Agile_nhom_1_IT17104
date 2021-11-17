@@ -75,7 +75,7 @@ public class MyValidate {
 
     public static boolean isNotNumberPhone(JTextField txtValue, String msg) {
         String Number = String.valueOf(txtValue.getText());
-        String pattern = "[0-9]{8,15}";
+        String pattern = "0[0-9]{8,15}";
         if (Number.matches(pattern) == false) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
@@ -102,7 +102,7 @@ public class MyValidate {
 
     public static boolean isNotStudenCode(JTextField txtValue, String msg) {
         String CodeSTD = String.valueOf(txtValue.getText());
-        String pattern = "P\\H[0-9]{2,15}";
+        String pattern = "[A-Z]{2}\\d{2,9}";
         if (CodeSTD.matches(pattern) == false) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);

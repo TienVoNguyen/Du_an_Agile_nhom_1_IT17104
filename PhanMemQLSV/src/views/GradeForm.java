@@ -416,7 +416,7 @@ public class GradeForm extends javax.swing.JDialog {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if(MyValidate.isEmpty(txtMaSV, "Không được để trống họ tên")) return;
-        if(MyValidate.isNotStudenCode(txtMaSV, "Sai Định Dạng Mã Sinh Viên, vui lòng nhập PH + Mã số sinh viên")) return;
+        if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) return;
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -425,7 +425,7 @@ public class GradeForm extends javax.swing.JDialog {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         if(MyValidate.isEmpty(txtMaSV, "Không được để trống họ tên")) return;
-        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Dạng Mã Sinh Viên, vui lòng nhập PH + Mã số sinh viên")) return;
+        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Dạng Mã Sinh Viên, vui lòng nhập PH+Mã số sinh viên")) return;
     }//GEN-LAST:event_btnSearchActionPerformed
 
      public void validate(){
@@ -434,8 +434,7 @@ public class GradeForm extends javax.swing.JDialog {
         if(MyValidate.isEmpty(txtTA, "Không được để trống Điểm tiếng anh")) return;
         if(MyValidate.isEmpty(txtTH, "Không được để trống Điểm Tin Học")) return;
         if(MyValidate.isEmpty(txtGDTC, "Không được để trống Điểm Giáo Dục Thể Chất")) return;
-        
-        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Dạng Mã Sinh Viên, vui lòng nhập PH + Mã số sinh viên")) return;
+        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) return;
         if (MyValidate.isNotNumberScores(txtTA, "Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) return;
         if (MyValidate.isNotNumberScores(txtTH, "Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) return;
         if (MyValidate.isNotNumberScores(txtGDTC,"Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) return;
