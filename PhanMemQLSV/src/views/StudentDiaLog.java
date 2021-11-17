@@ -5,7 +5,9 @@
  */
 package views;
 
+import daos.StudentDAO;
 import helper.MyValidate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -329,6 +331,16 @@ public class StudentDiaLog extends javax.swing.JDialog {
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         if(MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) return;
+        if(JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa sinh viên không")==JOptionPane.NO_OPTION){
+            return;
+        }
+        try {
+            StudentDAO dao=new StudentDAO();
+            dao.delete(txtMaSV.getText());
+            JOptionPane.showMessageDialog(this, "Sinh viên đỡ được xóa khỏi CSDL");
+        } catch (Exception e) {
+            
+        }
         if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) return;
     }//GEN-LAST:event_btnDelActionPerformed
 

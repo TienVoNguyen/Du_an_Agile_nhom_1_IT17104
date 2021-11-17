@@ -27,7 +27,7 @@ public class StudentDAO implements StudentInterface<Student>{
 
     @Override
     public void delete(String maSV) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
