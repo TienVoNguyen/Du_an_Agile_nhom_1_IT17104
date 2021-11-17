@@ -6,7 +6,6 @@
 package views;
 
 import helper.ShareData;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
