@@ -374,9 +374,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        if (deleteStudent()) {
-            return;
-        }
+        deleteStudent();
 
     }//GEN-LAST:event_btnDelActionPerformed
 
@@ -453,7 +451,16 @@ public class StudentDiaLog extends javax.swing.JDialog {
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
-
+    
+    private void resetFrom() {
+        txtMaSV.setText("");
+        txtTen.setText("");
+        txtSDT.setText("");
+        txtEmail.setText("");
+        txtDiaChi.setText("");
+        rdoNam.setSelected(true);
+    }
+    
     private void updateStudent() {
         // if(checkValid()) return;
         String ma = txtMaSV.getText();
@@ -471,9 +478,9 @@ public class StudentDiaLog extends javax.swing.JDialog {
                 MyMessage.msgTrue("Cập nhật sinh viên thành công!");
                 //fillToTable();
 
-                //ResetFrom();
+                resetFrom();
             } else {
-                MyMessage.msgWarning("Cập nhật sinh viên không thành công!/nKiểm tra lại mã sinh viên hoặc thêm mới!");
+                MyMessage.msgWarning("Cập nhật sinh viên không thành công!\nKiểm tra lại mã sinh viên hoặc thêm mới!");
             }
         } catch (Exception ex) {
             MyMessage.msgFalse(ex.getMessage());
@@ -482,27 +489,26 @@ public class StudentDiaLog extends javax.swing.JDialog {
 
     }
 
-    public boolean deleteStudent() throws HeadlessException {
-        int xacNhan = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa sinh viên này không");
-        if (xacNhan == JOptionPane.YES_OPTION) {
-            if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
-                return true;
-            }
-            if (MyValidate.isNotStudenCode(txtMaSV, "Lỗi Mã Sinh Viên")) {
-                return true;
-            }
-            String maSV = txtMaSV.getText();
-            try {
-                if (qlStudent.delete(maSV)) {
-                    MyMessage.msgTrue("Xóa sinh viên thành công!");
-                } else {
-                    MyMessage.msgWarning("Xóa sinh viên không thành công!/nKiểm tra lại mã sinh viên!");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public void deleteStudent(){
+        if (MyValidate.isEmpty(txtMaSV, "Điền mã sinh viên cần xoá!")) return;
+        
+        if (MyMessage.question("Bạn có muốn xoá sinh viên này?")) {
+            return;
         }
-        return false;
+        String maSV = txtMaSV.getText();
+        try {
+            if (qlStudent.delete(maSV)) {
+                MyMessage.msgTrue("Xóa sinh viên thành công!");
+                //fillToTable();
+
+                resetFrom();
+            } else {
+                MyMessage.msgWarning("Xóa sinh viên không thành công!\nKiểm tra lại mã sinh viên!");
+            }
+        } catch (Exception e) {
+            MyMessage.msgFalse(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }
