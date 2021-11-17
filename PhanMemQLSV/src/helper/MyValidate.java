@@ -24,6 +24,7 @@ public class MyValidate {
             txtValue.requestFocus();
             return true;
         }
+        txtValue.setBackground(Color.white);
         return false;
     }
 
@@ -35,6 +36,7 @@ public class MyValidate {
             txtValue.requestFocus();
             return true;
         }
+        txtValue.setBackground(Color.white);
         return false;
     }
 
@@ -46,6 +48,7 @@ public class MyValidate {
             txtValue.requestFocus();
             return true;
         }
+        txtValue.setBackground(Color.white);
         return false;
     }
 
@@ -65,6 +68,7 @@ public class MyValidate {
             return true;
         }
 
+        txtValue.setBackground(Color.white);
         return false;
 
     }
@@ -79,6 +83,7 @@ public class MyValidate {
             return true;
         }
 
+        txtValue.setBackground(Color.white);
         return false;
     }
 
@@ -91,20 +96,21 @@ public class MyValidate {
             txtValue.requestFocus();
             return true;
         }
-
+        txtValue.setBackground(Color.white);
         return false;
     }
 
     public static boolean isNotStudenCode(JTextField txtValue, String msg) {
-        String Number = String.valueOf(txtValue);
-        String pattern = "PH[0-9]{2,10}";
-        if (Number.matches(pattern) == false) {
+        String CodeSTD = String.valueOf(txtValue.getText());
+        String pattern = "P\\H[0-9]{2,15}";
+        if (CodeSTD.matches(pattern) == false) {
             MyMessage.msgWarning(msg);
             txtValue.setBackground(Color.YELLOW);
             txtValue.requestFocus();
             return true;
         }
 
+        txtValue.setBackground(Color.white);
         return false;
     }
 }
