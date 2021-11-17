@@ -371,6 +371,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
                         System.exit(0);
                     }
                 });
+                
                 dialog.setVisible(true);
             }
         });
