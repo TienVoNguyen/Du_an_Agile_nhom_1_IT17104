@@ -7,6 +7,7 @@ package interfaces;
 
 import java.util.ArrayList;
 
+
 /**
  *
  * @author NTV
@@ -18,10 +19,10 @@ public interface StudentInterface<T> {
     
     public boolean delete(String maSV) throws Exception;
     
-    public ArrayList<T> getList() throws Exception;
-    
     public void setList(ArrayList<T> lst) throws Exception;
     
-    public boolean findByID(String maSV) throws Exception;
+    public T findByID(String maSV) throws Exception;
+    
+    public ArrayList<T> getDanhSachSV()throws Exception;
     
 }
