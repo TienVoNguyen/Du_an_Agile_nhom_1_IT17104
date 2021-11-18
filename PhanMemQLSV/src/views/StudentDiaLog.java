@@ -25,9 +25,6 @@ public class StudentDiaLog extends javax.swing.JDialog {
     private StudentInterface<Student> qlStudent;
     private DefaultTableModel dtm;
 
-    /**
-     * Creates new form sv
-     */
     public StudentDiaLog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -376,6 +373,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
        deleteStudent();
     }//GEN-LAST:event_btnDelActionPerformed
 
+
     private void tblSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSVMouseClicked
        int r = this.tblSV.getSelectedRow();
        if(r == -1){
@@ -393,11 +391,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tblSVMouseClicked
 
-    
-
-    /**
-     * @param args the command line arguments
-     */
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
