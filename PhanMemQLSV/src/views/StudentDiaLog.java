@@ -527,6 +527,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
     }
 
     private void FillToForm(int r) {
+        
         this.txtMaSV.setText(this.tblSV.getValueAt(r, 0).toString());
         this.txtTen.setText(this.tblSV.getValueAt(r, 1).toString());
         this.txtEmail.setText(this.tblSV.getValueAt(r, 2).toString());
