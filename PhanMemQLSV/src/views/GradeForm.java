@@ -533,9 +533,7 @@ public class GradeForm extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     
     public boolean validate_Grade(){
-        if (MyValidate.isEmpty(txtMaSV1, "Không được để trống họ tên")) {
-            return true;
-        }
+      
         if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
             return true;
         }
