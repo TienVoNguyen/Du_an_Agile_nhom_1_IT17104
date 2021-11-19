@@ -10,8 +10,6 @@ import daos.GradeDAO;
 import helper.MyMessage;
 import helper.MyValidate;
 import interfaces.GradeInterface;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.Grade;
 
 /**
