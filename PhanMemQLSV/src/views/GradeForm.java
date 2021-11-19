@@ -421,7 +421,9 @@ public class GradeForm extends javax.swing.JDialog {
 
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        validate_Grade();
+        
+        saveGrade();
+        
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -586,6 +588,34 @@ public class GradeForm extends javax.swing.JDialog {
         } catch (Exception ex) {
             ex.printStackTrace();
             MyMessage.msgFalse("Cập nhật điểm sinh viên thất bại!");
+        }
+    }
+    
+    
+    private void saveGrade() {
+        try {
+            if (validate_Grade()) {
+                return;
+            }
+            Grade st = new Grade();
+            st.setMaSV(txtMaSV.getText());
+            st.setTiengAnh(Float.parseFloat(txtTA.getText()));
+            st.setTinHoc(Float.parseFloat(txtTH.getText()));
+            st.setgDTC(Float.parseFloat(txtGDTC.getText()));
+            
+            if (MyMessage.question("Bạn có muốn thêm điểm của sinh viên?")) {
+                return;
+            }
+            if (qlGrade.add(st)) {
+                MyMessage.msgTrue("Thêm điểm sinh viên thành công!");
+                //fillToTable();
+                //resetFrom();
+            }else {
+                MyMessage.msgWarning("Thêm điểm sinh viên thất bại! \nKiểm tra lại mã sinh viên!");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MyMessage.msgFalse("Thêm điểm sinh viên thất bại!");
         }
     }
     

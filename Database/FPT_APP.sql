@@ -103,7 +103,7 @@ CREATE TABLE [dbo].[Student](
 	[sdt] [varchar](15) NULL,
 	[diaChi] [nvarchar](300) NULL,
 	[gioiTinh] [bit] NULL,
-	[hình] [image] NULL,
+	[hinh] [image] NULL,
  CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
 (
 	[maSV] ASC
