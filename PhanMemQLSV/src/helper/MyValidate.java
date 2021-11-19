@@ -54,7 +54,7 @@ public class MyValidate {
 
     public static boolean isNotNumberScores(JTextField txtValue, String msg_Format, String msg_Domain) {
         String Number = String.valueOf(txtValue.getText());
-        String pattern = "[0-9]{1,2}";
+        String pattern = "[0-9]{1}[.]{0,1}[0-9]{0,1}}";
         if (!Number.matches(pattern)) {
             MyMessage.msgWarning(msg_Format);
             txtValue.setBackground(Color.YELLOW);
