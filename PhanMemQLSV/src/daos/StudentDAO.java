@@ -24,7 +24,22 @@ public class StudentDAO implements StudentInterface<Student> {
 
     @Override
     public boolean add(Student student) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "INSERT INTO [dbo].[Student]([maSV],[hoTen],[email],[sdt],[diaChi],[gioiTinh],[hinh]) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        Connection con = MyConnection.ConnectionSQL();
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        
+        pstmt.setString(1, student.getMaSV());
+        pstmt.setString(2, student.getHoTen());
+        pstmt.setString(3, student.getEmail());
+        pstmt.setString(4, student.getSdt());
+        pstmt.setString(5, student.getDiaChi());
+        pstmt.setBoolean(6, student.isGt());
+        Blob hinh = null;
+        if (student.getHinh() != null) {
+            hinh = new SerialBlob(student.getHinh());
+        }
+        pstmt.setBlob(7, hinh);
+        return pstmt.executeUpdate() > 0;
     }
 
     @Override
