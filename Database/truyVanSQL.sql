@@ -21,7 +21,7 @@ SELECT * FROM [Student]
 SELECT * FROM [Student] WHERE [maSV] = ?
 
 --insert
-INSERT INTO [dbo].[Student]([maSV],[hoTen],[email],[sdt],[diaChi],[gioiTinh],[hình]) VALUES(?, ?, ?, ?, ?, ?, ?)
+INSERT INTO [dbo].[Student]([maSV],[hoTen],[email],[sdt],[diaChi],[gioiTinh],[hinh]) VALUES(?, ?, ?, ?, ?, ?, ?)
 
 --update sinh  viên theo mã sinh viên:
 UPDATE [dbo].[Student] SET [hoTen] = ?,[email] = ?,[sdt] = ?,[diaChi] = ?,[gioiTinh] = ?,[hinh] = ? WHERE [maSV] = ?

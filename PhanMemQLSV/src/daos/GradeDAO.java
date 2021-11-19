@@ -47,7 +47,13 @@ public class GradeDAO implements GradeInterface<Grade> {
 
     @Override
     public boolean delete(String maSV) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM [dbo].[Grade] WHERE [maSV] = ?";
+        try (
+                Connection con = MyConnection.ConnectionSQL();
+                PreparedStatement pstmt = con.prepareStatement(sql);) {
+            pstmt.setString(1, maSV);
+            return pstmt.executeUpdate() > 0;
+        }
     }
 
     @Override
@@ -90,6 +96,7 @@ public class GradeDAO implements GradeInterface<Grade> {
                 Connection con = MyConnection.ConnectionSQL();
                 PreparedStatement pstm = con.prepareStatement(sql);
                 ){
+            pstm.setString(1, maSV);
             try(ResultSet rs = pstm.executeQuery()){
                 if (rs.next()){
                     Grade st = new Grade();
