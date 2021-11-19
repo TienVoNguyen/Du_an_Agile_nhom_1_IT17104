@@ -7,17 +7,26 @@
 package views;
 
 import daos.GradeDAO;
+import daos.StudentDAO;
 import helper.MyMessage;
 import helper.MyValidate;
 import interfaces.GradeInterface;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import models.Grade;
+import models.Student;
 
 /**
  *
  * @author Admin
  */
 public class GradeForm extends javax.swing.JDialog {
+
     private GradeInterface<Grade> qlGrade;
+    private DefaultTableModel dtm;
+
     /**
      * Creates new form Diem
      */
@@ -26,7 +35,9 @@ public class GradeForm extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        dtm = (DefaultTableModel) tblDiemSV.getModel();
         qlGrade = new GradeDAO();
+        fillToTable();
     }
 
     /**
@@ -421,9 +432,9 @@ public class GradeForm extends javax.swing.JDialog {
 
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
+
         saveGrade();
-        
+
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -531,8 +542,8 @@ public class GradeForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtTA;
     private javax.swing.JTextField txtTH;
     // End of variables declaration//GEN-END:variables
-    
-    public boolean validate_Grade(){
+
+    public boolean validate_Grade() {
         if (MyValidate.isEmpty(txtMaSV1, "Không được để trống họ tên")) {
             return true;
         }
@@ -561,9 +572,9 @@ public class GradeForm extends javax.swing.JDialog {
             return true;
         }
 
-            return false;
+        return false;
     }
-    
+
     private void updateGrade() {
         try {
             if (validate_Grade()) {
@@ -574,7 +585,7 @@ public class GradeForm extends javax.swing.JDialog {
             st.setTiengAnh(Float.parseFloat(txtTA.getText()));
             st.setTinHoc(Float.parseFloat(txtTH.getText()));
             st.setgDTC(Float.parseFloat(txtGDTC.getText()));
-            
+
             if (MyMessage.question("Bạn có muốn cập nhật điểm của sinh viên?")) {
                 return;
             }
@@ -582,7 +593,7 @@ public class GradeForm extends javax.swing.JDialog {
                 MyMessage.msgTrue("Cập nhật điểm sinh viên thành công!");
                 //fillToTable();
                 //resetFrom();
-            }else {
+            } else {
                 MyMessage.msgWarning("Cập nhật điểm sinh viên thất bại! \nKiểm tra lại mã sinh viên!");
             }
         } catch (Exception ex) {
@@ -590,8 +601,7 @@ public class GradeForm extends javax.swing.JDialog {
             MyMessage.msgFalse("Cập nhật điểm sinh viên thất bại!");
         }
     }
-    
-    
+
     private void saveGrade() {
         try {
             if (validate_Grade()) {
@@ -602,15 +612,15 @@ public class GradeForm extends javax.swing.JDialog {
             st.setTiengAnh(Float.parseFloat(txtTA.getText()));
             st.setTinHoc(Float.parseFloat(txtTH.getText()));
             st.setgDTC(Float.parseFloat(txtGDTC.getText()));
-            
+
             if (MyMessage.question("Bạn có muốn thêm điểm của sinh viên?")) {
                 return;
             }
             if (qlGrade.add(st)) {
                 MyMessage.msgTrue("Thêm điểm sinh viên thành công!");
-                //fillToTable();
+                fillToTable();
                 //resetFrom();
-            }else {
+            } else {
                 MyMessage.msgWarning("Thêm điểm sinh viên thất bại! \nKiểm tra lại mã sinh viên!");
             }
         } catch (Exception ex) {
@@ -618,5 +628,31 @@ public class GradeForm extends javax.swing.JDialog {
             MyMessage.msgFalse("Thêm điểm sinh viên thất bại!");
         }
     }
-    
+
+    private void fillToTable() {
+        dtm.setRowCount(0);
+        
+        try {
+            StudentDAO dao = new StudentDAO();
+            ArrayList<Grade> st = this.qlGrade.getList();
+            for (Grade g : st) {
+                //Lấy tên sinh viên
+                Student sv = dao.findByID(g.getMaSV());
+                String tenSV = sv.getHoTen();
+                //tính điểm trung bình
+                float dtb = (g.getTiengAnh() + g.getTinHoc() + g.getgDTC())/3;
+                dtm.addRow(new Object[]{
+                    g.getMaSV(),
+                    tenSV,
+                    g.getTiengAnh(),
+                    g.getTinHoc(),
+                    g.getgDTC(),
+                    dtb
+                });
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

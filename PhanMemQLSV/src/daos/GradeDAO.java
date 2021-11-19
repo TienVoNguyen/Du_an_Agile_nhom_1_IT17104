@@ -9,8 +9,10 @@ import helper.MyConnection;
 import interfaces.GradeInterface;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import models.Grade;
+import models.Student;
 
 /**
  *
@@ -50,7 +52,30 @@ public class GradeDAO implements GradeInterface<Grade> {
 
     @Override
     public ArrayList<Grade> getList() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM [Grade]";
+         try (
+                Connection con = MyConnection.ConnectionSQL();
+                PreparedStatement pstm = con.prepareStatement(sql);) {
+
+            
+            try (ResultSet rs = pstm.executeQuery()) {
+                ArrayList<Grade> list = new ArrayList<>();
+                while (rs.next()) {
+                    Grade st = new Grade();
+                    st.setMaSV(rs.getString("maSV"));
+                    st.setId(rs.getInt("id"));
+                    st.setTiengAnh(rs.getFloat("tiengAnh"));
+                    st.setTinHoc(rs.getFloat("tinHoc"));
+                    st.setgDTC(rs.getFloat("GDTC"));
+                    
+                    list.add(st);
+                    
+                }
+                return list;
+            }
+            
+        }
+        
     }
 
     @Override
@@ -59,8 +84,26 @@ public class GradeDAO implements GradeInterface<Grade> {
     }
 
     @Override
-    public void findByID(String maSV) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Grade findByID(String maSV) throws Exception {
+        String sql = "SELECT * FROM [Grade] WHERE [maSV] = ?";
+        try(
+                Connection con = MyConnection.ConnectionSQL();
+                PreparedStatement pstm = con.prepareStatement(sql);
+                ){
+            try(ResultSet rs = pstm.executeQuery()){
+                if (rs.next()){
+                    Grade st = new Grade();
+                    st.setMaSV(rs.getString("maSV"));
+                    st.setId(rs.getInt("id"));
+                    st.setTiengAnh(rs.getFloat("tiengAnh"));
+                    st.setTinHoc(rs.getFloat("tinHoc"));
+                    st.setgDTC(rs.getFloat("GDTC"));
+                    return st;
+                }
+                
+            }
+            return null;
+        }
     }
 
     @Override
