@@ -17,6 +17,7 @@ public class MainFrom extends javax.swing.JFrame {
     private LoginDialog login;
     private StudentDiaLog fStudent;
     private GradeForm fGrade;
+    private TeamInformation loading;
 
     /**
      * Creates new form MainFrom
@@ -25,6 +26,8 @@ public class MainFrom extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);//Hiển thị toàn màn hình
+        loading = new TeamInformation(this, true);
+        
         login = new LoginDialog(this, true);
         fStudent = new StudentDiaLog(this, true);
         fGrade = new GradeForm(this, true);
@@ -290,6 +293,7 @@ public class MainFrom extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        loading.setVisible(true);
         login.setVisible(true);
         phanQuyen();
     }//GEN-LAST:event_formWindowOpened
