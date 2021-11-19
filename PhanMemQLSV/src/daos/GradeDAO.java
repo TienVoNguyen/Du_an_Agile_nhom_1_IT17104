@@ -16,11 +16,19 @@ import models.Grade;
  *
  * @author NTV
  */
-public class GradeDAO implements GradeInterface<Grade>{
+public class GradeDAO implements GradeInterface<Grade> {
 
     @Override
     public boolean add(Grade t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "INSERT INTO [dbo].[Grade]([maSV],[tiengAnh],[tinHoc],[GDTC]) VALUES( ?, ?, ?, ?)";
+        Connection con = MyConnection.ConnectionSQL();
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        pstmt.setString(1, t.getMaSV());
+        pstmt.setFloat(2, t.getTiengAnh());
+        pstmt.setFloat(3, t.getTinHoc());
+        pstmt.setFloat(4, t.getgDTC());
+        return pstmt.executeUpdate() > 0;
+        
     }
 
     @Override
@@ -79,5 +87,5 @@ public class GradeDAO implements GradeInterface<Grade>{
     public Grade first() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
