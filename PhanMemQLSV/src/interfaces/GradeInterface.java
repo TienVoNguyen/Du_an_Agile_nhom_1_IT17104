@@ -4,11 +4,11 @@ package interfaces;
 import java.util.ArrayList;
 
 public interface GradeInterface<T> {
-    public void add(T t) throws Exception;
+    public boolean add(T t) throws Exception;
     
-    public void update(T t) throws Exception;
+    public boolean update(T t) throws Exception;
     
-    public void delete(String maSV) throws Exception;
+    public boolean delete(String maSV) throws Exception;
     
     public ArrayList<T> getList() throws Exception;
     

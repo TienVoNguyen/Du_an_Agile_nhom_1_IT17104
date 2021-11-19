@@ -6,14 +6,18 @@
  */
 package views;
 
+import daos.GradeDAO;
+import helper.MyMessage;
 import helper.MyValidate;
+import interfaces.GradeInterface;
+import models.Grade;
 
 /**
  *
  * @author Admin
  */
 public class GradeForm extends javax.swing.JDialog {
-
+    private GradeInterface<Grade> qlGrade;
     /**
      * Creates new form Diem
      */
@@ -22,6 +26,7 @@ public class GradeForm extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        qlGrade = new GradeDAO();
     }
 
     /**
@@ -431,7 +436,7 @@ public class GradeForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        validate_Grade();
+        updateGrade();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -442,38 +447,6 @@ public class GradeForm extends javax.swing.JDialog {
             return;
         }
     }//GEN-LAST:event_btnSearchActionPerformed
-
-    public boolean validate_Grade(){
-        if (MyValidate.isEmpty(txtMaSV1, "Không được để trống họ tên")) {
-            return true;
-        }
-        if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
-            return true;
-        }
-        if (MyValidate.isEmpty(txtTA, "Không được để trống Điểm tiếng anh")) {
-            return true;
-        }
-        if (MyValidate.isEmpty(txtTH, "Không được để trống Điểm Tin Học")) {
-            return true;
-        }
-        if (MyValidate.isEmpty(txtGDTC, "Không được để trống Điểm Giáo Dục Thể Chất")) {
-            return true;
-        }
-        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) {
-            return true;
-        }
-        if (MyValidate.isNotNumberScores(txtTA, "Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) {
-            return true;
-        }
-        if (MyValidate.isNotNumberScores(txtTH, "Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) {
-            return true;
-        }
-        if (MyValidate.isNotNumberScores(txtGDTC, "Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) {
-            return true;
-        }
-
-            return false;
-    }
 
     /**
      * @param args the command line arguments
@@ -556,4 +529,64 @@ public class GradeForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtTA;
     private javax.swing.JTextField txtTH;
     // End of variables declaration//GEN-END:variables
+    
+    public boolean validate_Grade(){
+        if (MyValidate.isEmpty(txtMaSV1, "Không được để trống họ tên")) {
+            return true;
+        }
+        if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
+            return true;
+        }
+        if (MyValidate.isEmpty(txtTA, "Không được để trống Điểm tiếng anh")) {
+            return true;
+        }
+        if (MyValidate.isEmpty(txtTH, "Không được để trống Điểm Tin Học")) {
+            return true;
+        }
+        if (MyValidate.isEmpty(txtGDTC, "Không được để trống Điểm Giáo Dục Thể Chất")) {
+            return true;
+        }
+        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) {
+            return true;
+        }
+        if (MyValidate.isNotNumberScores(txtTA, "Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) {
+            return true;
+        }
+        if (MyValidate.isNotNumberScores(txtTH, "Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) {
+            return true;
+        }
+        if (MyValidate.isNotNumberScores(txtGDTC, "Sai Định Dạng Điểm, vui lòng nhập số", "Vui lòng nhập điểm lớn hơn 10 nhở hơn 0")) {
+            return true;
+        }
+
+            return false;
+    }
+    
+    private void updateGrade() {
+        try {
+            if (validate_Grade()) {
+                return;
+            }
+            Grade st = new Grade();
+            st.setMaSV(txtMaSV.getText());
+            st.setTiengAnh(Float.parseFloat(txtTA.getText()));
+            st.setTinHoc(Float.parseFloat(txtTH.getText()));
+            st.setgDTC(Float.parseFloat(txtGDTC.getText()));
+            
+            if (MyMessage.question("Bạn có muốn cập nhật điểm của sinh viên?")) {
+                return;
+            }
+            if (qlGrade.update(st)) {
+                MyMessage.msgTrue("Cập nhật điểm sinh viên thành công!");
+                //fillToTable();
+                //resetFrom();
+            }else {
+                MyMessage.msgWarning("Cập nhật điểm sinh viên thất bại! \nKiểm tra lại mã sinh viên!");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MyMessage.msgFalse("Cập nhật điểm sinh viên thất bại!");
+        }
+    }
+    
 }
