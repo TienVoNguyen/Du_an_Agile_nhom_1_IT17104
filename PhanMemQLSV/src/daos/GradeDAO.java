@@ -5,7 +5,10 @@
  */
 package daos;
 
+import helper.MyConnection;
 import interfaces.GradeInterface;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import models.Grade;
 
@@ -16,17 +19,24 @@ import models.Grade;
 public class GradeDAO implements GradeInterface<Grade>{
 
     @Override
-    public void add(Grade t) throws Exception {
+    public boolean add(Grade t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Grade t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean update(Grade st) throws Exception {
+        String sql = "UPDATE GRADE SET tiengAnh = ?, tinHoc = ?, GDTC = ? WHERE maSV = ?";
+        Connection con = MyConnection.ConnectionSQL();
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        pstmt.setString(4, st.getMaSV());
+        pstmt.setFloat(1, st.getTiengAnh());
+        pstmt.setFloat(2, st.getTinHoc());
+        pstmt.setFloat(3, st.getgDTC());
+        return pstmt.executeUpdate() > 0;
     }
 
     @Override
-    public void delete(String maSV) throws Exception {
+    public boolean delete(String maSV) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
