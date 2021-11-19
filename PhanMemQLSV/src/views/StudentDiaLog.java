@@ -10,9 +10,9 @@ import daos.StudentDAO;
 import helper.MyMessage;
 import helper.MyValidate;
 import interfaces.StudentInterface;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import models.Student;
 
@@ -33,6 +33,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
         qlStudent = new StudentDAO();
         this.dtm = (DefaultTableModel) tblSV.getModel();
         fillToTable();
+        FillToForm(0);
 
     }
 
@@ -284,10 +285,21 @@ public class StudentDiaLog extends javax.swing.JDialog {
         jPanel5.setBackground(new java.awt.Color(255, 102, 0));
         jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
+            }
+        });
+
         jLabel9.setText("Mã SV:");
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Search.png"))); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -370,28 +382,52 @@ public class StudentDiaLog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-       deleteStudent();
+        deleteStudent();
     }//GEN-LAST:event_btnDelActionPerformed
 
 
     private void tblSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSVMouseClicked
-       int r = this.tblSV.getSelectedRow();
-       if(r == -1){
-           return;
-       }
-        this.txtMaSV.setText(this.tblSV.getValueAt(r, 0).toString());
-        this.txtTen.setText(this.tblSV.getValueAt(r, 1).toString());
-        this.txtEmail.setText(this.tblSV.getValueAt(r, 2).toString());
-        this.txtSDT.setText(this.tblSV.getValueAt(r, 3).toString());
-        this.txtDiaChi.setText(this.tblSV.getValueAt(r, 5).toString());
-        if(this.tblSV.getValueAt(r, 4).equals("Nữ")){
-            this.rdoNu.setSelected(true);
-        }else{
-            this.rdoNam.setSelected(true);
+        resetFrom();
+        int r = this.tblSV.getSelectedRow();
+        if (r == -1) {
+            return;
         }
+        FillToForm(r);
     }//GEN-LAST:event_tblSVMouseClicked
 
- 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        String maSV = this.txtSearch.getText();
+        if (maSV.equals("")){
+            MyValidate.isEmpty(txtSearch, "Bạn phải nhập Mã Sinh viên");
+            return;
+        }
+        try {
+            Student sv = this.qlStudent.findByID(maSV);
+            if (sv == null) {
+                MyMessage.msgFalse("Không tìm thấy mã sinh viên: "+maSV);
+                return;
+            }
+            this.txtMaSV.setText(sv.getMaSV());
+            this.txtTen.setText(sv.getHoTen());
+            this.txtEmail.setText(sv.getEmail());
+            this.txtSDT.setText(sv.getSdt());
+            this.txtDiaChi.setText(sv.getDiaChi());
+            if (sv.isGt()) {
+                this.rdoNam.setSelected(true);
+            } else {
+                this.rdoNu.setSelected(true);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnSearch.doClick();
+        }
+    }//GEN-LAST:event_txtSearchKeyPressed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -427,7 +463,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
                         System.exit(0);
                     }
                 });
-                
+
                 dialog.setVisible(true);
             }
         });
@@ -489,13 +525,26 @@ public class StudentDiaLog extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-    
+
+    private void FillToForm(int r) {
+        this.txtMaSV.setText(this.tblSV.getValueAt(r, 0).toString());
+        this.txtTen.setText(this.tblSV.getValueAt(r, 1).toString());
+        this.txtEmail.setText(this.tblSV.getValueAt(r, 2).toString());
+        this.txtSDT.setText(this.tblSV.getValueAt(r, 3).toString());
+        this.txtDiaChi.setText(this.tblSV.getValueAt(r, 5).toString());
+        if (this.tblSV.getValueAt(r, 4).equals("Nữ")) {
+            this.rdoNu.setSelected(true);
+        } else {
+            this.rdoNam.setSelected(true);
+        }
+    }
+
     public boolean checkValid() {
         if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
             return true;
         }
         if (MyValidate.isEmpty(txtTen, "Không được để trống tên")) {
-            return true ;
+            return true;
         }
         if (MyValidate.isEmpty(txtEmail, "Không được để trống Email")) {
             return true;
@@ -516,7 +565,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
             return true;
         }
         return false;
-        
+
     }
 
     private void resetFrom() {
@@ -526,9 +575,18 @@ public class StudentDiaLog extends javax.swing.JDialog {
         txtEmail.setText("");
         txtDiaChi.setText("");
         rdoNam.setSelected(true);
+        txtDiaChi.setBackground(Color.white);
+        txtTen.setBackground(Color.white);
+        txtSDT.setBackground(Color.white);
+        txtMaSV.setBackground(Color.white);
+        txtEmail.setBackground(Color.white);
+        txtSearch.setBackground(Color.white);
     }
-    private void addStudent(){
-        if(checkValid()) return;
+
+    private void addStudent() {
+        if (checkValid()) {
+            return;
+        }
         String ma = txtMaSV.getText();
         String ten = txtTen.getText();
         String sdt = txtSDT.getText();
@@ -536,12 +594,12 @@ public class StudentDiaLog extends javax.swing.JDialog {
         String diaChi = txtDiaChi.getText();
         boolean gt = rdoNam.isSelected();
         Student st = new Student(ma, ten, email, sdt, diaChi, gt, null);
-        try{
-            if(qlStudent.add(st)){
+        try {
+            if (qlStudent.add(st)) {
                 MyMessage.msgTrue("Thêm mơi sinh vine thành công! ");
                 fillToTable();
                 resetFrom();
-            }else{
+            } else {
                 MyMessage.msgWarning("Thêm mới sinh viên không thành công\n Kiểm tra lại mã sinh viên!");
             }
         } catch (Exception ex) {
@@ -549,8 +607,11 @@ public class StudentDiaLog extends javax.swing.JDialog {
             ex.printStackTrace();
         }
     }
+
     private void updateStudent() {
-        if(checkValid()) return;
+        if (checkValid()) {
+            return;
+        }
         String ma = txtMaSV.getText();
         String ten = txtTen.getText();
         String sdt = txtSDT.getText();

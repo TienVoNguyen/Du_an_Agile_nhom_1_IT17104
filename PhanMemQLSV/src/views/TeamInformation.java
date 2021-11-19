@@ -5,6 +5,10 @@
  */
 package views;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 /**
  *
  * @author Admin
@@ -16,6 +20,18 @@ public class TeamInformation extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        Timer t = new Timer(20, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (pngLoading.getValue() < 100){
+                    pngLoading.setValue(pngLoading.getValue() + 1);
+                }
+                if (pngLoading.getValue() >= 100){
+                    dispose();
+                }
+            }
+        });
+        t.start();
     }
 
     /**
@@ -65,11 +81,12 @@ public class TeamInformation extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        pngLoading = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Giao Diện Nhóm AGILE 1 _FPT Polytechnic");
         setBackground(new java.awt.Color(153, 204, 255));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
@@ -367,16 +384,15 @@ public class TeamInformation extends javax.swing.JDialog {
 
         pnlAnh.add(jPanel8);
 
-        jProgressBar1.setBackground(new java.awt.Color(102, 102, 255));
-        jProgressBar1.setValue(80);
-        jProgressBar1.setStringPainted(true);
+        pngLoading.setBackground(new java.awt.Color(102, 102, 255));
+        pngLoading.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pngLoading, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -386,7 +402,7 @@ public class TeamInformation extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, jProgressBar1});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, pngLoading});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,10 +413,11 @@ public class TeamInformation extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addComponent(pngLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -486,7 +503,7 @@ public class TeamInformation extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JProgressBar pngLoading;
     private javax.swing.JPanel pnlAnh;
     // End of variables declaration//GEN-END:variables
 }
