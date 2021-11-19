@@ -11,25 +11,34 @@ package models;
  */
 public class Grade {
     private int id;
-    private float tiengAnh,tinHoc,gDTC;
+    private String maSV;
+    private float tiengAnh,tinHoc,gDTC;        
 
     public Grade() {
     }
 
-    public Grade(int id, float tiengAnh, float tinHoc, float gDTC) {
+    public Grade(int id,String maSV, float tiengAnh, float tinHoc, float gDTC) {
         this.id = id;
+        this.maSV = maSV;
         this.tiengAnh = tiengAnh;
         this.tinHoc = tinHoc;
         this.gDTC = gDTC;
     }
 
-    public Grade(float tiengAnh, float tinHoc, float gDTC) {
+    public Grade(String maSV,float tiengAnh, float tinHoc, float gDTC) {
+        this.maSV = maSV;
         this.tiengAnh = tiengAnh;
         this.tinHoc = tinHoc;
         this.gDTC = gDTC;
     }
     
-    
+    public String getMaSV() {
+        return maSV;
+    }
+
+    public void setMaSV(String maSV) {
+        this.maSV = maSV;
+    }
     
     public int getId() {
         return id;
