@@ -26,6 +26,7 @@ public class GradeForm extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        this.txtTenSV.setEditable(false);
         qlGrade = new GradeDAO();
     }
 
@@ -57,7 +58,7 @@ public class GradeForm extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lblDiemTB = new javax.swing.JLabel();
-        txtMaSV1 = new javax.swing.JTextField();
+        txtTenSV = new javax.swing.JTextField();
         pnlDiem = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDiemSV = new javax.swing.JTable();
@@ -171,7 +172,7 @@ public class GradeForm extends javax.swing.JDialog {
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlTTSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMaSV1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenSV, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtGDTC, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMaSV, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlTTSVLayout.createSequentialGroup()
@@ -187,7 +188,7 @@ public class GradeForm extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlTTSVLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtGDTC, txtMaSV, txtMaSV1, txtTA, txtTH});
+        pnlTTSVLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtGDTC, txtMaSV, txtTA, txtTH, txtTenSV});
 
         pnlTTSVLayout.setVerticalGroup(
             pnlTTSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +196,7 @@ public class GradeForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(pnlTTSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtMaSV1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenSV, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlTTSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMaSV, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,7 +224,7 @@ public class GradeForm extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        pnlTTSVLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtGDTC, txtMaSV, txtMaSV1, txtTA, txtTH});
+        pnlTTSVLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtGDTC, txtMaSV, txtTA, txtTH, txtTenSV});
 
         tblDiemSV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -257,7 +258,7 @@ public class GradeForm extends javax.swing.JDialog {
         pnlDiem.setLayout(pnlDiemLayout);
         pnlDiemLayout.setHorizontalGroup(
             pnlDiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
         );
         pnlDiemLayout.setVerticalGroup(
             pnlDiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,29 +349,38 @@ public class GradeForm extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlDiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(pnlTTSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(71, 71, 71)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cbbTOP, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel2)
-                        .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(150, 150, 150)
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlTTSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(85, 85, 85)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlDiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbbTOP, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pnlDiem, pnlSearch});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -428,13 +438,13 @@ public class GradeForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
+        if (MyValidate.isEmpty(this.txtSearch, "Không được để trống mã sinh viên")) {
             return;
         }
-        if (MyValidate.isNotStudenCode(txtMaSV, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) {
+        if (MyValidate.isNotStudenCode(txtSearch, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) {
             return;
         }
-
+        this.deleteGrade();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -526,12 +536,12 @@ public class GradeForm extends javax.swing.JDialog {
     private javax.swing.JTable tblDiemSV;
     private javax.swing.JTextField txtGDTC;
     private javax.swing.JTextField txtMaSV;
-    private javax.swing.JTextField txtMaSV1;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtTA;
     private javax.swing.JTextField txtTH;
+    private javax.swing.JTextField txtTenSV;
     // End of variables declaration//GEN-END:variables
-    
+
     public boolean validate_Grade(){
       
         if (MyValidate.isEmpty(txtMaSV, "Không được để trống mã sinh viên")) {
@@ -561,7 +571,6 @@ public class GradeForm extends javax.swing.JDialog {
 
             return false;
     }
-    
     private void updateGrade() {
         try {
             if (validate_Grade()) {
@@ -586,6 +595,24 @@ public class GradeForm extends javax.swing.JDialog {
         } catch (Exception ex) {
             ex.printStackTrace();
             MyMessage.msgFalse("Cập nhật điểm sinh viên thất bại!");
+        }
+    }
+
+    private void deleteGrade() {
+        if(MyMessage.question("Bạn có muốn xóa điểm Sinh Viên này?")){
+            return;
+        }
+        String maSV = this.txtSearch.getText();
+        
+        try {
+            if(qlGrade.delete(maSV)){
+                MyMessage.msgTrue("Xóa điểm thành công!");
+            }else{
+                MyMessage.msgWarning("Xóa điểm không thành công! \n Kiểm tra lại mã!");
+            }
+        } catch (Exception ex) {
+            MyMessage.msgFalse(ex.getMessage());
+            ex.printStackTrace();
         }
     }
     
