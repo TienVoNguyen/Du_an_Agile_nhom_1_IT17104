@@ -25,8 +25,10 @@ public class MainFrom extends javax.swing.JFrame {
     public MainFrom() {
         initComponents();
         setLocationRelativeTo(null);
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);//Hiển thị toàn màn hình
         loading = new TeamInformation(this, true);
+        loading.setVisible(true);
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);//Hiển thị toàn màn hình
+        
         
         login = new LoginDialog(this, true);
         fStudent = new StudentDiaLog(this, true);
@@ -293,7 +295,7 @@ public class MainFrom extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        loading.setVisible(true);
+        
         login.setVisible(true);
         phanQuyen();
     }//GEN-LAST:event_formWindowOpened
