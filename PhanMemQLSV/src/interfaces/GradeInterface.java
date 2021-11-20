@@ -14,7 +14,7 @@ public interface GradeInterface<T> {
     
     public void setList(ArrayList<T> lst) throws Exception;
     
-    public void findByID(String maSV) throws Exception;
+    public T findByID(String maSV) throws Exception;
     
     public T getGrade() throws Exception;
     
