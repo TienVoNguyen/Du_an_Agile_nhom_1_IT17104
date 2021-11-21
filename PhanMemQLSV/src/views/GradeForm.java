@@ -36,8 +36,8 @@ public class GradeForm extends javax.swing.JDialog {
         dtm = (DefaultTableModel) tblDiemSV.getModel();
         this.txtTenSV.setEditable(false);
         qlGrade = new GradeDAO();
-        fillToTable();       
-        fillToForm(0);
+        fillToTable();
+         fillToForm(0);
     }
 
     /**
@@ -480,7 +480,7 @@ public class GradeForm extends javax.swing.JDialog {
         if (r == -1) {
             return;
         }
-        
+
         fillToForm(tblDiemSV.getSelectedRow());
     }//GEN-LAST:event_tblDiemSVMouseClicked
 
@@ -697,22 +697,27 @@ public class GradeForm extends javax.swing.JDialog {
     StudentDAO dao = new StudentDAO();
 
     private void fillToForm(int r) {
-        String masv = (String) tblDiemSV.getValueAt(r, 0);
-        
+        String masv = null;
         try {
+            masv = (String) tblDiemSV.getValueAt(r, 0);
+        } catch (Exception ex) {
+            //ahihi
+        }
+        try {
+            if(masv == null) return;
             Grade g = qlGrade.findByID(masv);
 
             if (g != null) {
                 Student sv = dao.findByID(g.getMaSV());
-                String tenSV = sv.getHoTen();                
-                float s = (Float.parseFloat(tblDiemSV.getValueAt(r, 2).toString()) + Float.parseFloat(tblDiemSV.getValueAt(r, 3).toString()) +
-                        Float.parseFloat(tblDiemSV.getValueAt(r, 4).toString())) / 3;
+                String tenSV = sv.getHoTen();
+                float s = (Float.parseFloat(tblDiemSV.getValueAt(r, 2).toString()) + Float.parseFloat(tblDiemSV.getValueAt(r, 3).toString())
+                        + Float.parseFloat(tblDiemSV.getValueAt(r, 4).toString())) / 3;
                 txtMaSV.setText(g.getMaSV());
                 txtTA.setText(tblDiemSV.getValueAt(r, 2).toString());
                 txtTH.setText(tblDiemSV.getValueAt(r, 3).toString());
                 txtGDTC.setText(tblDiemSV.getValueAt(r, 4).toString());
                 txtTenSV.setText(tenSV);
-                lblDiemTB.setText( String.format("%.2f", s));
+                lblDiemTB.setText(String.format("%.2f", s));
 
             }
         } catch (Exception ex) {
