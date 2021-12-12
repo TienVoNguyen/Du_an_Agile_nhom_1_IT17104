@@ -12,6 +12,8 @@ import helper.MyMessage;
 import helper.MyValidate;
 import interfaces.GradeInterface;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import models.Grade;
 import models.Student;
@@ -37,7 +39,7 @@ public class GradeForm extends javax.swing.JDialog {
         this.txtTenSV.setEditable(false);
         qlGrade = new GradeDAO();
         fillToTable();
-         fillToForm(0);
+        fillToForm(0);
     }
 
     /**
@@ -256,6 +258,7 @@ public class GradeForm extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblDiemSV.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblDiemSV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDiemSVMouseClicked(evt);
@@ -325,7 +328,13 @@ public class GradeForm extends javax.swing.JDialog {
         jLabel11.setForeground(new java.awt.Color(255, 0, 0));
         jLabel11.setText("Hiển thị danh sách theo");
 
-        cbbTOP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Danh sách Lớp", "Danh sách chưa có điểm", "Top 3 Điểm cao nhất", " " }));
+        cbbTOP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cbbTOP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Danh sách Lớp", "Danh sách chưa có điểm", "Top 3 Điểm cao nhất" }));
+        cbbTOP.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbTOPItemStateChanged(evt);
+            }
+        });
         cbbTOP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbTOPActionPerformed(evt);
@@ -343,15 +352,13 @@ public class GradeForm extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbbTOP, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cbbTOP, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -380,7 +387,7 @@ public class GradeForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(cbbTOP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbTOP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlDiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -414,7 +421,7 @@ public class GradeForm extends javax.swing.JDialog {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
         saveGrade();
-
+        this.cbbTOP.setSelectedIndex(0);
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -426,6 +433,7 @@ public class GradeForm extends javax.swing.JDialog {
             return;
         }
         this.deleteGrade();
+        this.fillToTableTop3();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -433,11 +441,30 @@ public class GradeForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        if (MyValidate.isEmpty(txtSearch, "Không được để trống mã sinh viên")) {
-            return;
-        }
-        if (MyValidate.isNotStudenCode(txtSearch, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) {
-            return;
+        try {
+            if (MyValidate.isEmpty(txtSearch, "Không được để trống mã sinh viên")) {
+                return;
+            }
+            if (MyValidate.isNotStudenCode(txtSearch, "Sai Định Mã Sinh Viên,vui lòng nhập Mã Trường (vd: PH) + Mã Sinh Viên (vd: 00000)")) {
+                return;
+            }
+            String search = this.txtSearch.getText();
+
+            Grade grade = qlGrade.findByID(search);
+            if (grade == null) {
+                MyMessage.msgWarning("Mã sinh viên chưa có điểm !");
+                return;
+            }
+
+            txtMaSV.setText(grade.getMaSV());
+            txtTenSV.setText(dao.findByID(search).getHoTen());
+            txtTA.setText(String.valueOf(grade.getTiengAnh()));
+            txtTH.setText(grade.getTinHoc() + "");
+            txtGDTC.setText(grade.getgDTC() + "");
+            String DTB = ((grade.getTiengAnh() + grade.getTinHoc() + grade.getgDTC()) / 3) + "";
+            lblDiemTB.setText(DTB);
+        } catch (Exception ex) {
+            Logger.getLogger(GradeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -447,8 +474,26 @@ public class GradeForm extends javax.swing.JDialog {
             return;
         }
 
-        fillToForm(tblDiemSV.getSelectedRow());
+        float s = (Float.parseFloat(tblDiemSV.getValueAt(r, 2).toString()) + Float.parseFloat(tblDiemSV.getValueAt(r, 3).toString())
+                + Float.parseFloat(tblDiemSV.getValueAt(r, 4).toString())) / 3;
+        txtMaSV.setText(dtm.getValueAt(r, 0).toString());
+        txtSearch.setText(dtm.getValueAt(r, 0).toString());
+        txtTA.setText(tblDiemSV.getValueAt(r, 2).toString());
+        txtTH.setText(tblDiemSV.getValueAt(r, 3).toString());
+        txtGDTC.setText(tblDiemSV.getValueAt(r, 4).toString());
+        txtTenSV.setText(dtm.getValueAt(r, 1).toString());
+        lblDiemTB.setText(String.format("%.2f", s));
     }//GEN-LAST:event_tblDiemSVMouseClicked
+
+    private void cbbTOPItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbTOPItemStateChanged
+        if (this.cbbTOP.getSelectedIndex() == 0) {
+            this.fillToTable();
+        } else if (this.cbbTOP.getSelectedIndex() == 1) {
+            this.fillToTableNotGrade();
+        } else {
+            this.fillToTableTop3();
+        }
+    }//GEN-LAST:event_cbbTOPItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -654,6 +699,32 @@ public class GradeForm extends javax.swing.JDialog {
             ex.printStackTrace();
         }
     }
+
+    private void fillToTableNotGrade() {
+        dtm.setRowCount(0);
+
+        try {
+
+            ArrayList<Grade> st = this.qlGrade.getListNotGrade();
+            for (Grade g : st) {
+                //Lấy tên sinh viên
+                Student sv = dao.findByID(g.getMaSV());
+                String tenSV = sv.getHoTen();
+                //tính điểm trung bình
+//                float dtb = (g.getTiengAnh() + g.getTinHoc() + g.getgDTC()) / 3;
+                dtm.addRow(new Object[]{
+                    g.getMaSV(),
+                    tenSV,
+                    0,
+                    0,
+                    0,
+                    0
+                });
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     StudentDAO dao = new StudentDAO();
 
     private void fillToForm(int r) {
@@ -664,7 +735,9 @@ public class GradeForm extends javax.swing.JDialog {
             //ahihi
         }
         try {
-            if(masv == null) return;
+            if (masv == null) {
+                return;
+            }
             Grade g = qlGrade.findByID(masv);
 
             if (g != null) {
@@ -673,12 +746,39 @@ public class GradeForm extends javax.swing.JDialog {
                 float s = (Float.parseFloat(tblDiemSV.getValueAt(r, 2).toString()) + Float.parseFloat(tblDiemSV.getValueAt(r, 3).toString())
                         + Float.parseFloat(tblDiemSV.getValueAt(r, 4).toString())) / 3;
                 txtMaSV.setText(g.getMaSV());
+                txtSearch.setText(g.getMaSV());
                 txtTA.setText(tblDiemSV.getValueAt(r, 2).toString());
                 txtTH.setText(tblDiemSV.getValueAt(r, 3).toString());
                 txtGDTC.setText(tblDiemSV.getValueAt(r, 4).toString());
                 txtTenSV.setText(tenSV);
                 lblDiemTB.setText(String.format("%.2f", s));
 
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void fillToTableTop3() {
+         dtm.setRowCount(0);
+
+        try {
+
+            ArrayList<Grade> st = this.qlGrade.getListtop3();
+            for (Grade g : st) {
+                //Lấy tên sinh viên
+                Student sv = dao.findByID(g.getMaSV());
+                String tenSV = sv.getHoTen();
+                //tính điểm trung bình
+                float dtb = (g.getTiengAnh() + g.getTinHoc() + g.getgDTC()) / 3;
+                dtm.addRow(new Object[]{
+                    g.getMaSV(),
+                    tenSV,
+                    g.getTiengAnh(),
+                    g.getTinHoc(),
+                    g.getgDTC(),
+                    String.format("%.2f", dtb)
+                });
             }
         } catch (Exception ex) {
             ex.printStackTrace();

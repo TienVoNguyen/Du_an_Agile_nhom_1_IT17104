@@ -20,7 +20,7 @@ public class MainFrom extends javax.swing.JFrame {
     private TeamInformation loading;
 
     /**
-     * Creates new form MainFrom
+     * Ahihi
      */
     public MainFrom() {
         initComponents();

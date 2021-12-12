@@ -23,26 +23,31 @@ public class GradeDAO implements GradeInterface<Grade> {
     @Override
     public boolean add(Grade t) throws Exception {
         String sql = "INSERT INTO [dbo].[Grade]([maSV],[tiengAnh],[tinHoc],[GDTC]) VALUES( ?, ?, ?, ?)";
-        Connection con = MyConnection.ConnectionSQL();
+        Connection con = CreateConnection();
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setString(1, t.getMaSV());
         pstmt.setFloat(2, t.getTiengAnh());
         pstmt.setFloat(3, t.getTinHoc());
         pstmt.setFloat(4, t.getgDTC());
         return pstmt.executeUpdate() > 0;
-        
+
     }
 
     @Override
     public boolean update(Grade st) throws Exception {
         String sql = "UPDATE GRADE SET tiengAnh = ?, tinHoc = ?, GDTC = ? WHERE maSV = ?";
-        Connection con = MyConnection.ConnectionSQL();
+        Connection con = CreateConnection();
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setString(4, st.getMaSV());
         pstmt.setFloat(1, st.getTiengAnh());
         pstmt.setFloat(2, st.getTinHoc());
         pstmt.setFloat(3, st.getgDTC());
         return pstmt.executeUpdate() > 0;
+    }
+
+    public Connection CreateConnection() throws Exception {
+        Connection con = MyConnection.ConnectionSQL();
+        return con;
     }
 
     @Override
@@ -59,11 +64,10 @@ public class GradeDAO implements GradeInterface<Grade> {
     @Override
     public ArrayList<Grade> getList() throws Exception {
         String sql = "SELECT * FROM [Grade]";
-         try (
+        try (
                 Connection con = MyConnection.ConnectionSQL();
                 PreparedStatement pstm = con.prepareStatement(sql);) {
 
-            
             try (ResultSet rs = pstm.executeQuery()) {
                 ArrayList<Grade> list = new ArrayList<>();
                 while (rs.next()) {
@@ -73,15 +77,63 @@ public class GradeDAO implements GradeInterface<Grade> {
                     st.setTiengAnh(rs.getFloat("tiengAnh"));
                     st.setTinHoc(rs.getFloat("tinHoc"));
                     st.setgDTC(rs.getFloat("GDTC"));
-                    
+
                     list.add(st);
-                    
+
                 }
                 return list;
             }
-            
+
         }
-        
+
+    }
+
+    @Override
+    public ArrayList<Grade> getListNotGrade() throws Exception {
+        String sql = "select maSV,hoTen from Student\n"
+                + "where maSV not in (select maSV from Grade)";
+        try (
+                Connection con = MyConnection.ConnectionSQL();
+                PreparedStatement pstm = con.prepareStatement(sql);) {
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                ArrayList<Grade> list = new ArrayList<>();
+                while (rs.next()) {
+                    Grade st = new Grade();
+                    st.setMaSV(rs.getString("maSV"));
+                    list.add(st);
+
+                }
+                return list;
+            }
+
+        }
+    }
+
+    @Override
+    public ArrayList<Grade> getListtop3() throws Exception {
+        String sql = "SELECT TOP 3 * FROM Grade ORDER BY (tiengAnh+tinHoc+GDTC)/3 DESC";
+        try (
+                Connection con = MyConnection.ConnectionSQL();
+                PreparedStatement pstm = con.prepareStatement(sql);) {
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                ArrayList<Grade> list = new ArrayList<>();
+                while (rs.next()) {
+                    Grade st = new Grade();
+                    st.setMaSV(rs.getString("maSV"));
+                    st.setId(rs.getInt("id"));
+                    st.setTiengAnh(rs.getFloat("tiengAnh"));
+                    st.setTinHoc(rs.getFloat("tinHoc"));
+                    st.setgDTC(rs.getFloat("GDTC"));
+
+                    list.add(st);
+
+                }
+                return list;
+            }
+
+        }
     }
 
     @Override
@@ -92,13 +144,12 @@ public class GradeDAO implements GradeInterface<Grade> {
     @Override
     public Grade findByID(String maSV) throws Exception {
         String sql = "SELECT * FROM [Grade] WHERE [maSV] = ?";
-        try(
+        try (
                 Connection con = MyConnection.ConnectionSQL();
-                PreparedStatement pstm = con.prepareStatement(sql);
-                ){
+                PreparedStatement pstm = con.prepareStatement(sql);) {
             pstm.setString(1, maSV);
-            try(ResultSet rs = pstm.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = pstm.executeQuery()) {
+                if (rs.next()) {
                     Grade st = new Grade();
                     st.setMaSV(rs.getString("maSV"));
                     st.setId(rs.getInt("id"));
@@ -107,7 +158,7 @@ public class GradeDAO implements GradeInterface<Grade> {
                     st.setgDTC(rs.getFloat("GDTC"));
                     return st;
                 }
-                
+
             }
             return null;
         }
