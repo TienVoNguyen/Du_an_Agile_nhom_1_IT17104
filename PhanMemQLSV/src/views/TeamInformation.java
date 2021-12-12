@@ -20,7 +20,7 @@ public class TeamInformation extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        Timer t = new Timer(20, new ActionListener() {
+        Timer t = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (pngLoading.getValue() < 100){
