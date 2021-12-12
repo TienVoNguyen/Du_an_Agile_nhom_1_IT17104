@@ -264,6 +264,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblSV.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblSVMouseClicked(evt);
@@ -597,7 +598,7 @@ public class StudentDiaLog extends javax.swing.JDialog {
         Student st = new Student(ma, ten, email, sdt, diaChi, gt, null);
         try {
             if (qlStudent.add(st)) {
-                MyMessage.msgTrue("Thêm mơi sinh vine thành công! ");
+                MyMessage.msgTrue("Thêm mơi sinh viên thành công! ");
                 fillToTable();
                 resetFrom();
             } else {

@@ -33,8 +33,7 @@ public class UserDAO implements UserInterface<User> {
                 PreparedStatement pstm = con.prepareStatement(sql);) {
             pstm.setString(1, username);
             pstm.setString(2, pass);
-            try (
-                    ResultSet rs = pstm.executeQuery();) {
+            try (ResultSet rs = pstm.executeQuery();) {
                     if (rs.next()) {
                         ShareData.user = new User();
                         ShareData.user.setUsername(username);
